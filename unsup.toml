@@ -1,0 +1,83 @@
+# unsup: варианты сборки
+# Лежит рядом с pack.toml. packwiz его не трогает.
+
+[flavor_groups.preset]
+name = "Вариант сборки"
+description = "Полная — всё как задумано.\nОблегчённая убирает шейдеры, дальнюю прорисовку, детальные текстуры, звуковое окружение, карты и часть интерфейса.\nИгровые механики и совместимость с сервером одинаковые."
+side = "client"
+
+[[flavor_groups.preset.choices]]
+id = "full"
+name = "Полная"
+description = "Рекомендуется, если компьютер справляется."
+
+[[flavor_groups.preset.choices]]
+id = "lite"
+name = "Облегчённая"
+description = "Для слабых ПК. Убирает 27 клиентских модов."
+
+# --- моды только для полной версии ---
+
+# graphics
+[metafile.irisshaders]
+flavors = ["full"]
+[metafile.distant-horizons]
+flavors = ["full"]
+[metafile.ssrd]
+flavors = ["full"]
+[metafile.fusion-connected-textures]
+flavors = ["full"]
+[metafile.entity-texture-features-fabric]
+flavors = ["full"]
+[metafile.entity-model-features]
+flavors = ["full"]
+[metafile.3dskinlayers]
+flavors = ["full"]
+[metafile.coastal-waves]
+flavors = ["full"]
+[metafile.particle-rain]
+flavors = ["full"]
+
+# sound
+[metafile.ambientsounds]
+flavors = ["full"]
+
+# maps
+[metafile.xaeros-minimap]
+flavors = ["full"]
+[metafile.xaeros-world-map]
+flavors = ["full"]
+
+# ui
+[metafile.mouse-tweaks]
+flavors = ["full"]
+[metafile.enchantment-descriptions]
+flavors = ["full"]
+[metafile.legendary-tooltips]
+flavors = ["full"]
+[metafile.iceberg]
+flavors = ["full"]
+[metafile.prism-lib]
+flavors = ["full"]
+[metafile.just-zoom]
+flavors = ["full"]
+[metafile.more-overlays-updated]
+flavors = ["full"]
+[metafile.advancement-plaques]
+flavors = ["full"]
+[metafile.better-advancements]
+flavors = ["full"]
+[metafile.better-ping-display]
+flavors = ["full"]
+[metafile.jade-addons]
+flavors = ["full"]
+[metafile.cubes-without-borders]
+flavors = ["full"]
+
+# menu
+[metafile.fancymenu]
+flavors = ["full"]
+[metafile.melody]
+flavors = ["full"]
+[metafile.konkrete]
+flavors = ["full"]
