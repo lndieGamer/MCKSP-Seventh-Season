@@ -14,7 +14,7 @@ description = "Рекомендуется, если компьютер спра�
 [[flavor_groups.preset.choices]]
 id = "lite"
 name = "Облегчённая"
-description = "Для слабых ПК. Убирает 27 клиентских модов."
+description = "Для слабых ПК. Убирает 26 клиентских модов."
 
 # --- моды только для полной версии ---
 
@@ -25,8 +25,7 @@ flavors = ["full"]
 flavors = ["full"]
 [metafile.ssrd]
 flavors = ["full"]
-[metafile.fusion-connected-textures]
-flavors = ["full"]
+# fusion-connected-textures НЕ исключаем: его требует rechiseled (мод ядра)
 [metafile.entity-texture-features-fabric]
 flavors = ["full"]
 [metafile.entity-model-features]
