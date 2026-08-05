@@ -2,6 +2,8 @@
 .git/**
 .gitattributes
 .packwizignore
+.github/**
+.gitignore
 
 # рабочие скрипты и файлы — не для игроков
 *.ps1
