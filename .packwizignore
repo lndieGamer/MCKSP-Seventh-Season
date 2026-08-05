@@ -4,6 +4,7 @@
 .packwizignore
 .github/**
 .gitignore
+unsup.toml
 
 # рабочие скрипты и файлы — не для игроков
 *.ps1

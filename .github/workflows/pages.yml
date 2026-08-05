@@ -53,6 +53,7 @@ jobs:
           cp -r mods config _site/
           if [ -f options.txt ];  then cp options.txt  _site/; fi
           if [ -f servers.dat ];  then cp servers.dat  _site/; fi
+          if [ -f unsup.toml ];   then cp unsup.toml   _site/; fi
           echo "--- что уедет на Pages:"
           du -sh _site
           find _site -maxdepth 1
