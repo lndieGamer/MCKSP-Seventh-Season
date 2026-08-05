@@ -1,0 +1,22 @@
+# служебное
+.git/**
+.gitattributes
+.packwizignore
+
+# рабочие скрипты и файлы — не для игроков
+*.ps1
+*.py
+*.bat
+*.zip
+*.bak
+*.csv
+*.xlsx
+*.md
+
+# случайно забытые jar в паке
+mods/*.jar
+
+# бутстрап и сборка установщика
+packwiz-installer-bootstrap.jar
+installer/**
+build/**

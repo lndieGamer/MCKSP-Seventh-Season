@@ -1,0 +1,13 @@
+name = "Sit"
+filename = "sit-1.21.1-1.4.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "5e9b0c4ee084770f8757bf53c2ecae19d382f7ed"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 6776225
+project-id = 278717

@@ -1,0 +1,13 @@
+name = "CBC:Enhanced Shell Armor [Create Big Cannons]"
+filename = "cannoncompressedarmor-1.0.0.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/fbE5JtMI/versions/DkmFE48y/cannoncompressedarmor-1.0.0.jar"
+hash-format = "sha512"
+hash = "2340eb53d3c2919ebc4265f7f64b39eedc552338b020a7c44974a8972d977444b9be8084335d39aac706b5c0da3b00120bad25ec72f795ac1c017dd4c6533139"
+
+[update]
+[update.modrinth]
+mod-id = "fbE5JtMI"
+version = "DkmFE48y"

@@ -1,0 +1,8 @@
+name = "steampunk-armory"
+filename = "steampunk-1.0.1.jar"
+side = "both"
+
+[download]
+url = "https://github.com/lndieGamer/steampunk_armory/releases/download/v1.0.0/steampunk-1.0.1.jar"
+hash-format = "sha256"
+hash = "7aa2e5d13937f183be0e937f976f35a17334e85dcb33444fc0978b7ffde0678b"

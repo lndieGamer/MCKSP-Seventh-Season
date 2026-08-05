@@ -1,0 +1,13 @@
+name = "Better Safe Bed"
+filename = "bettersafebed-neoforge-1.21-16.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "ae3ba4dd8616dfb235e0764e54f9b0eb2bd69f28"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 5504769
+project-id = 484804

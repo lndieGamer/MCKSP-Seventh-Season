@@ -1,0 +1,8 @@
+name = "kiriieshki"
+filename = "kiriieshki-1.0.jar"
+side = "both"
+
+[download]
+url = "https://github.com/lndieGamer/KirIIeshki/releases/download/v1.0.0/kiriieshki-1.0.jar"
+hash-format = "sha256"
+hash = "200523b5174ace67e9989d894b7f20c999d700e5fd9dc36cc8a0018acec132ea"

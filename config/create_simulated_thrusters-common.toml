@@ -1,0 +1,42 @@
+#Maximum thrust of the redstone thruster (at full power and speed)
+# Default: 600.0
+# Range: 0.0 ~ 10000.0
+redstoneThrusterThrust = 600.0
+#Maximum airflow of the redstone thruster (at full power and speed)
+# Default: 0.0
+# Range: 0.0 ~ 1000000.0
+redstoneThrusterAirflow = 0.0
+#Kinetic speed in RPM where the redstone thruster reaches full configured thrust
+# Default: 256.0
+# Range: 1.0 ~ 4096.0
+redstoneThrusterMaxThrustRpm = 256.0
+#Thrust of the blaze thruster on low-grade fuel (sticks etc.)
+# Default: 80.0
+# Range: 0.0 ~ 100000.0
+blazeThrusterLowThrust = 80.0
+#Thrust of the blaze thruster on normal fuel (coal, logs etc.)
+# Default: 700.0
+# Range: 0.0 ~ 100000.0
+blazeThrusterHighThrust = 700.0
+#Thrust of the blaze thruster on superheated fuel (blaze cake)
+# Default: 1500.0
+# Range: 0.0 ~ 100000.0
+blazeThrusterBlueThrust = 1500.0
+#When enabled, powering a blaze thruster with redstone pauses thrust and fuel consumption
+blazeThrusterRedstoneControl = true
+#Maximum thrust of the brass thruster (at full RPM)
+# Default: 4800.0
+# Range: 0.0 ~ 100000.0
+brassThrusterThrust = 4800.0
+#Maximum airflow of the brass thruster (at full RPM)
+# Default: 8.0
+# Range: 0.0 ~ 1000000.0
+brassThrusterAirflow = 8.0
+#Stress impact (SU per RPM) of the brass thruster
+# Default: 24.0
+# Range: 0.0 ~ 1000.0
+brassThrusterStressImpact = 24.0
+#Maximum gimbal deflection in degrees per side at full redstone
+# Default: 5.0
+# Range: 0.0 ~ 45.0
+brassThrusterMaxGimbalDegrees = 5.0

@@ -1,0 +1,13 @@
+name = "Serene Seasons Gen Fix"
+filename = "sereneseasonsgenfix-1.2.4.jar"
+side = "server"
+
+[download]
+url = "https://cdn.modrinth.com/data/26LRjUh8/versions/mglcoBeE/sereneseasonsgenfix-1.2.4.jar"
+hash-format = "sha512"
+hash = "77c045b34a5780bd406c04cb190b3086910096f77297137ca57ef757851b4994da09deaddc8ae49c84e76e70faa517463b1f6e4fa7a67481397b76dbda1e3795"
+
+[update]
+[update.modrinth]
+mod-id = "26LRjUh8"
+version = "mglcoBeE"
