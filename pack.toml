@@ -11,3 +11,4 @@ hash = "d23a796c206421ce44cc9a22fabd89ab0d6bf9211e75cd3fad7c0857292878f4"
 [versions]
 minecraft = "1.21.1"
 neoforge = "21.1.248"
+unsup = "1.1.6"
