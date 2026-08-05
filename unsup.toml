@@ -4,8 +4,8 @@
 # плоским списком, без имени группы.
 
 [flavor_groups.graphics]
-name = "Тяжёлая графика"
-description = "Шейдеры, дальняя прорисовка, детальные текстуры мобов, волны и осадки.\nСамая заметная нагрузка на видеокарту."
+name = "Графические моды"
+description = "Поддержка шейдеров, distant horizons (256+ чанков прорисовки), детальные текстуры мобов, волны и осадки.\nСамая заметная нагрузка на видеокарту."
 side = "client"
 
 [[flavor_groups.graphics.choices]]
@@ -131,5 +131,3 @@ flavors = ["menu_on"]
 flavors = ["menu_on"]
 [metafile.konkrete]
 flavors = ["menu_on"]
-
-# fusion-connected-textures не исключаем: его требует rechiseled (мод ядра)
