@@ -1,0 +1,182 @@
+﻿<#
+    add-mods.ps1 — добавление модов в пак.
+
+    Кладёте jar-ники в mods\, запускаете скрипт. Он опознаёт их через
+    CurseForge и Modrinth, превращает в метафайлы, обновляет индекс,
+    коммитит и пушит. Опознанные jar удаляются, неопознанные остаются.
+
+    Запуск из корня пака:
+        .\add-mods.ps1                      обычный прогон
+        .\add-mods.ps1 -Version 1.1.0       заодно поднять версию пака
+        .\add-mods.ps1 -NoPush              без git push
+        .\add-mods.ps1 -DryRun              ничего не менять, только показать
+#>
+
+param(
+    [string]$PackDir = $PSScriptRoot,
+    [string]$Version,
+    [switch]$NoPush,
+    [switch]$DryRun
+)
+
+$ErrorActionPreference = 'Stop'
+[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+$UA = @{ 'User-Agent' = 'packwiz-helper/1.0 (private modpack)' }
+
+function Say($t, $c = 'Gray') { Write-Host $t -ForegroundColor $c }
+function Head($t) { Write-Host ""; Write-Host "== $t" -ForegroundColor Cyan }
+
+Set-Location $PackDir
+if (-not (Test-Path 'pack.toml')) {
+    Say "pack.toml не найден. Скрипт должен лежать в корне пака." Red
+    exit 1
+}
+
+function Get-Metafiles {
+    Get-ChildItem 'mods\*.pw.toml' -EA SilentlyContinue |
+        ForEach-Object { $_.BaseName -replace '\.pw$', '' }
+}
+
+$before = @(Get-Metafiles)
+$jars   = @(Get-ChildItem 'mods\*.jar' -EA SilentlyContinue)
+
+Head "Начальное состояние"
+Say "  метафайлов: $($before.Count)"
+Say "  новых jar:  $($jars.Count)"
+
+if ($jars.Count -eq 0 -and -not $Version) {
+    Say "`nНечего добавлять. Положите jar-ники в mods\ и запустите снова." Yellow
+    exit 0
+}
+
+# ---------- 1. CurseForge ----------
+if ($jars.Count -gt 0 -and -not $DryRun) {
+    Head "Опознание через CurseForge"
+    & packwiz curseforge detect
+}
+
+# ---------- 2. Modrinth по хешу ----------
+$left = @(Get-ChildItem 'mods\*.jar' -EA SilentlyContinue)
+if ($left.Count -gt 0) {
+    Head "Опознание через Modrinth ($($left.Count) файлов)"
+
+    $byHash = @{}
+    foreach ($j in $left) {
+        $byHash[(Get-FileHash $j.FullName -Algorithm SHA1).Hash.ToLower()] = $j
+    }
+
+    $hits = @{}
+    try {
+        $body = @{ hashes = @($byHash.Keys); algorithm = 'sha1' } | ConvertTo-Json -Compress
+        $resp = Invoke-RestMethod -Method Post -Uri 'https://api.modrinth.com/v2/version_files' `
+                  -ContentType 'application/json' -Headers $UA `
+                  -Body ([Text.Encoding]::UTF8.GetBytes($body))
+        foreach ($pr in $resp.PSObject.Properties) { $hits[$pr.Name.ToLower()] = $pr.Value }
+    } catch {
+        Say "  запрос к Modrinth не удался: $($_.Exception.Message)" Yellow
+    }
+
+    if ($hits.Count -gt 0) {
+        $ids = @($hits.Values | ForEach-Object { $_.project_id } | Sort-Object -Unique)
+        $json = $ids | ConvertTo-Json -Compress
+        if ($ids.Count -eq 1) { $json = "[$json]" }
+        $projects = Invoke-RestMethod -Headers $UA `
+            -Uri ("https://api.modrinth.com/v2/projects?ids=" + [Uri]::EscapeDataString($json))
+        $slug = @{}
+        foreach ($p in $projects) { $slug[$p.id] = $p.slug }
+
+        foreach ($h in $hits.Keys) {
+            $s   = $slug[$hits[$h].project_id]
+            $jar = $byHash[$h]
+            Say "  $($jar.Name)  ->  $s"
+            if (-not $DryRun) {
+                & packwiz modrinth add $s
+                if ($LASTEXITCODE -eq 0) { Remove-Item $jar.FullName -Force }
+            }
+        }
+    }
+}
+
+# ---------- 3. что не опозналось ----------
+$stuck = @(Get-ChildItem 'mods\*.jar' -EA SilentlyContinue)
+if ($stuck.Count -gt 0) {
+    Head "Не опознано ($($stuck.Count)) — нужен метафайл вручную"
+    $stuck | ForEach-Object { Say "  $($_.Name)" Yellow }
+    Say ""
+    Say "  Залейте их в GitHub Releases и добавьте так:" DarkGray
+    Say "    packwiz url add <имя> <прямая-ссылка-на-jar>" DarkGray
+}
+
+# ---------- 4. что появилось ----------
+$after = @(Get-Metafiles)
+$new   = @($after | Where-Object { $before -notcontains $_ })
+
+if ($new.Count -gt 0) {
+    Head "Добавлено модов: $($new.Count)"
+    $new | Sort-Object | ForEach-Object { Say "  $_" Green }
+    Say ""
+    Say "  ВНИМАНИЕ: всем новым модам проставлено side = both." Yellow
+    Say "  Если среди них есть чисто клиентские — впишите их в set-sides.ps1" Yellow
+    Say "  и в unsup.toml, иначе они уедут на сервер и в облегчённую сборку." Yellow
+}
+
+# ---------- 5. версия пака ----------
+if ($Version) {
+    Head "Версия пака -> $Version"
+    foreach ($f in @('pack.toml', 'config\bcc-common.toml')) {
+        if (-not (Test-Path $f)) { Say "  $f не найден, пропускаю" Yellow; continue }
+        $t = Get-Content $f -Raw
+        if ($f -like '*pack.toml') {
+            $t = $t -replace '(?m)^version\s*=\s*".*"', "version = `"$Version`""
+        } else {
+            $t = $t -replace 'modpackVersion\s*=\s*".*"', "modpackVersion = `"$Version`""
+        }
+        if (-not $DryRun) {
+            [IO.File]::WriteAllText((Resolve-Path $f), $t, (New-Object Text.UTF8Encoding $false))
+        }
+        Say "  $f обновлён"
+    }
+}
+
+# ---------- 6. индекс ----------
+if (-not $DryRun) {
+    Head "Обновление индекса"
+    & packwiz refresh
+}
+
+# ---------- 7. git ----------
+Head "Git"
+if ($DryRun) {
+    & git status --short
+    Say "`nСухой прогон — ничего не записано и не отправлено." Magenta
+    exit 0
+}
+
+$changed = & git status --porcelain
+if (-not $changed) {
+    Say "  изменений нет, коммит не нужен" DarkGray
+    exit 0
+}
+
+$msg = if ($new.Count -gt 0) {
+    "add: " + (($new | Sort-Object) -join ', ')
+} else {
+    "chore: обновление пака"
+}
+if ($Version) { $msg = "$msg (v$Version)" }
+if ($msg.Length -gt 200) { $msg = $msg.Substring(0, 197) + '...' }
+
+& git add -A
+& git commit -m $msg
+if ($LASTEXITCODE -ne 0) { Say "  коммит не прошёл" Red; exit 1 }
+
+if ($NoPush) {
+    Say "`n  -NoPush: коммит сделан, отправка пропущена." Yellow
+} else {
+    & git push
+    if ($LASTEXITCODE -eq 0) {
+        Say "`nГотово. Через минуту-две изменения доедут до игроков." Green
+    } else {
+        Say "  push не прошёл — отправьте вручную" Red
+    }
+}
