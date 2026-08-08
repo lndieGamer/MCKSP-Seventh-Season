@@ -1,15 +1,18 @@
 ﻿<#
-    add-to-unsup.ps1 — завести галочку в unsup для клиентского мода.
+    add-to-unsup.ps1 — галочки в unsup: добавить, переименовать,
+    перепривязать, удалить.
 
-    Показывает клиентские моды, которых нет в unsup.toml (такие ставятся всем
-    и всегда), и добавляет для выбранного либо свою галочку, либо привязку к
-    уже существующей.
+    Работает с unsup.toml поблочно: файл режется по заголовкам таблиц, и
+    правится ровно нужный блок. Комментарии, стоящие ПЕРЕД заголовком,
+    относятся к предыдущему блоку и не трогаются — так безопаснее.
+    Перед каждой записью создаётся unsup.toml.bak.
 
     Запуск из корня пака (или откуда угодно с -PackDir):
-        .\add-to-unsup.ps1              список и выбор
-        .\add-to-unsup.ps1 sodium       сразу найти мод
-        .\add-to-unsup.ps1 -List        только показать непривязанные
-        .\add-to-unsup.ps1 sodium -DryRun
+        .\add-to-unsup.ps1              меню действий
+        .\add-to-unsup.ps1 sodium       сразу найти мод для добавления
+        .\add-to-unsup.ps1 -List        клиентские моды без галочки
+        .\add-to-unsup.ps1 -Edit        сразу к правке существующих
+        .\add-to-unsup.ps1 -DryRun      ничего не писать, только показать
 #>
 
 param(
@@ -17,10 +20,27 @@ param(
     [string]$Query,
     [string]$PackDir,
     [switch]$List,
+    [switch]$Edit,
     [switch]$DryRun
 )
 
 $ErrorActionPreference = 'Stop'
+
+# Read-Host в PowerShell 5.1 при chcp 65001 возвращает «?» вместо кириллицы,
+# пока консоли не задана кодировка явно.
+try {
+    [Console]::OutputEncoding = New-Object Text.UTF8Encoding $false
+    [Console]::InputEncoding  = New-Object Text.UTF8Encoding $false
+} catch { }
+
+# Add-Content в Windows PowerShell 5.1 пишет в системной ANSI-кодировке, а не
+# в UTF-8: если она не кириллическая, весь текст превращается в «?». Именно
+# так испортились названия галочек. Пишем байты сами.
+function Append-Utf8($path, $text) {
+    if (-not (Test-Path $path)) { New-Item $path -ItemType File -Force | Out-Null }
+    [IO.File]::AppendAllText(
+        (Resolve-Path $path).Path, $text, (New-Object Text.UTF8Encoding $false))
+}
 $UA = @{ 'User-Agent' = 'mckspack-helper/1.0 (private modpack)' }
 
 function Say($t, $c = 'Gray') { Write-Host $t -ForegroundColor $c }
@@ -74,6 +94,45 @@ function Read-Mods {
     $r
 }
 
+# ---------- работа с unsup.toml поблочно ----------
+# Блок = строка-заголовок таблицы и всё до следующего заголовка. То, что
+# стоит до первого заголовка, идёт отдельным куском без имени.
+function Split-Toml($text) {
+    $blocks = @()
+    $cur = [pscustomobject]@{ Header = $null; Lines = @() }
+    foreach ($line in ($text -split "`r?`n")) {
+        if ($line -match '^\s*\[\[?([^\]]+)\]\]?\s*$') {
+            $blocks += $cur
+            $cur = [pscustomobject]@{ Header = $Matches[1]; Lines = @($line) }
+        } else {
+            $cur.Lines += $line
+        }
+    }
+    $blocks += $cur
+    $blocks
+}
+
+function Join-Toml($blocks) {
+    (($blocks | ForEach-Object { $_.Lines -join "`n" }) -join "`n")
+}
+
+function Save-Toml($blocks) {
+    $text = Join-Toml $blocks
+    if (-not $text.EndsWith("`n")) { $text += "`n" }
+    if ($DryRun) { Say "  сухой прогон — unsup.toml не тронут" Magenta; return }
+    Copy-Item 'unsup.toml' 'unsup.toml.bak' -Force
+    [IO.File]::WriteAllText((Resolve-Path 'unsup.toml').Path, $text,
+        (New-Object Text.UTF8Encoding $false))
+    Say "  записано, копия старого файла — unsup.toml.bak" Green
+}
+
+# заголовки у нас двух видов: с кавычками и без
+function Header-Is($block, $prefix, $id) {
+    if (-not $block.Header) { return $false }
+    $h = $block.Header
+    ($h -eq "$prefix.`"$id`"") -or ($h -eq "$prefix.$id")
+}
+
 function Is-Bound($id) {
     ($toml -match [regex]::Escape("[metafile.`"$id`"]")) -or ($toml -match [regex]::Escape("[metafile.$id]"))
 }
@@ -91,6 +150,177 @@ if ($List) {
     Say "  Такие ставятся всем и всегда." DarkGray
     $unbound | ForEach-Object { Say ("  {0,-34} {1}" -f $_.Id, (Plain $_.Name)) }
     exit 0
+}
+
+# ---------- список существующих галочек ----------
+function Get-Groups($blocks) {
+    $r = @()
+    foreach ($b in $blocks) {
+        if (-not $b.Header) { continue }
+        if ($b.Header -notmatch '^flavor_groups\.(.+)$') { continue }
+        $id = $Matches[1].Trim('"')
+        if ($id -like '*.choices') { continue }
+        $nm = ''
+        foreach ($l in $b.Lines) { if ($l -match '^\s*name\s*=\s*"(.*)"') { $nm = $Matches[1]; break } }
+        $r += [pscustomobject]@{ Id = $id; Name = $nm; Block = $b }
+    }
+    $r
+}
+
+function Pick-Group($groups, $title) {
+    Head $title
+    for ($i = 0; $i -lt $groups.Count; $i++) {
+        Say ("  {0,2}) {1,-30} {2}" -f ($i+1), $groups[$i].Id, (Plain $groups[$i].Name))
+    }
+    $p = Read-Host "`nНомер (Enter — отмена)"
+    if (-not $p) { return $null }
+    $gi = 0
+    if (-not [int]::TryParse($p, [ref]$gi) -or $gi -lt 1 -or $gi -gt $groups.Count) {
+        Say "Неверный номер." Red; return $null
+    }
+    $groups[$gi-1]
+}
+
+function Do-Rename {
+    $blocks = Split-Toml (Get-Content 'unsup.toml' -Raw)
+    $groups = @(Get-Groups $blocks)
+    if ($groups.Count -eq 0) { Say "В unsup.toml нет галочек." Yellow; return }
+    $g = Pick-Group $groups "Какую галочку правим"
+    if (-not $g) { return }
+
+    $curName = $g.Name
+    $curDesc = ''
+    foreach ($l in $g.Block.Lines) { if ($l -match '^\s*description\s*=\s*"(.*)"') { $curDesc = $Matches[1] } }
+
+    Head "$(Plain $curName)"
+    Say "  описание: $curDesc" DarkGray
+    Say ""
+    $nm = Read-Host "  Новое название (Enter — оставить)"
+    $ds = Read-Host "  Новое описание (Enter — оставить)"
+    if (-not $nm -and -not $ds) { Say "Ничего не меняли." Yellow; return }
+
+    $newLines = @()
+    foreach ($l in $g.Block.Lines) {
+        if ($nm -and $l -match '^\s*name\s*=\s*"') {
+            $newLines += 'name = "' + ($nm -replace '"', "'") + '"'
+        } elseif ($ds -and $l -match '^\s*description\s*=\s*"') {
+            $newLines += 'description = "' + ($ds -replace '"', "'") + '"'
+        } else { $newLines += $l }
+    }
+    $g.Block.Lines = $newLines
+
+    Head "Запись"
+    Save-Toml $blocks
+}
+
+function Do-Rebind {
+    $blocks = Split-Toml (Get-Content 'unsup.toml' -Raw)
+    $binds = @()
+    foreach ($b in $blocks) {
+        if ($b.Header -and $b.Header -match '^metafile\.(.+)$') {
+            $id = $Matches[1].Trim('"')
+            $fl = ''
+            foreach ($l in $b.Lines) { if ($l -match '^\s*flavors\s*=\s*(.*)$') { $fl = $Matches[1] } }
+            $binds += [pscustomobject]@{ Id = $id; Name = $fl; Block = $b }
+        }
+    }
+    if ($binds.Count -eq 0) { Say "В unsup.toml нет привязок." Yellow; return }
+    $b = Pick-Group $binds "Какую привязку правим"
+    if (-not $b) { return }
+
+    $groups = @(Get-Groups $blocks)
+    Head "Галочки, к которым можно привязать"
+    for ($i = 0; $i -lt $groups.Count; $i++) {
+        Say ("  {0,2}) {1}" -f ($i+1), (Plain $groups[$i].Name))
+    }
+    Say ""
+    Say "  Через запятую, если нужно несколько: мод встанет, если включена" DarkGray
+    Say "  хотя бы одна из них. Так привязывают библиотеки." DarkGray
+    $p = Read-Host "`nНомера (Enter — отмена)"
+    if (-not $p) { return }
+
+    $ids = @()
+    foreach ($n in ($p -split '[,\s]+' | Where-Object { $_ })) {
+        $gi = 0
+        if (-not [int]::TryParse($n, [ref]$gi) -or $gi -lt 1 -or $gi -gt $groups.Count) {
+            Say "  неверный номер: $n" Red; return
+        }
+        $ids += $groups[$gi-1].Id + '_on'
+    }
+
+    $newLines = @()
+    foreach ($l in $b.Block.Lines) {
+        if ($l -match '^\s*flavors\s*=') {
+            $newLines += 'flavors = [' + (($ids | ForEach-Object { "`"$_`"" }) -join ', ') + ']'
+        } else { $newLines += $l }
+    }
+    $b.Block.Lines = $newLines
+    Say "  новая привязка: $($ids -join ', ')" DarkGray
+
+    Head "Запись"
+    Save-Toml $blocks
+}
+
+function Do-Remove {
+    $blocks = Split-Toml (Get-Content 'unsup.toml' -Raw)
+    $groups = @(Get-Groups $blocks)
+    if ($groups.Count -eq 0) { Say "В unsup.toml нет галочек." Yellow; return }
+    $g = Pick-Group $groups "Какую галочку удаляем"
+    if (-not $g) { return }
+
+    # на выборы этой галочки могут ссылаться привязки других модов
+    $refs = @()
+    foreach ($b in $blocks) {
+        if (-not $b.Header -or $b.Header -notmatch '^metafile\.(.+)$') { continue }
+        $who = $Matches[1].Trim('"')
+        if ($who -eq $g.Id) { continue }
+        foreach ($l in $b.Lines) {
+            if ($l -match '^\s*flavors\s*=' -and $l -like "*$($g.Id)_on*") { $refs += $who }
+        }
+    }
+    if ($refs.Count -gt 0) {
+        Head "Осторожно"
+        Say "  На «$($g.Id)_on» ссылаются привязки: $($refs -join ', ')" Red
+        Say "  После удаления они будут указывать в пустоту, и эти моды" Yellow
+        Say "  перестанут ставиться. Сначала перепривяжите их." Yellow
+        $go = Read-Host "  Всё равно удалить? (введите ДА)"
+        if ($go -ne 'ДА') { Say "  Отменено." Yellow; return }
+    }
+
+    $kept = @()
+    $dropped = 0
+    foreach ($b in $blocks) {
+        $drop = $false
+        if ($b.Header) {
+            if ($b.Header -eq "flavor_groups.`"$($g.Id)`"" -or $b.Header -eq "flavor_groups.$($g.Id)") { $drop = $true }
+            if ($b.Header -like "flavor_groups.`"$($g.Id)`".choices" -or $b.Header -like "flavor_groups.$($g.Id).choices") { $drop = $true }
+            if (Header-Is $b 'metafile' $g.Id) { $drop = $true }
+        }
+        if ($drop) { $dropped++ } else { $kept += $b }
+    }
+
+    Head "Удаление"
+    Say "  убрано блоков: $dropped" DarkGray
+    Say "  мод $($g.Id) снова будет ставиться всем и всегда" Yellow
+    Save-Toml $kept
+}
+
+# ---------- меню действий ----------
+if ($Edit -or (-not $Query -and -not $List)) {
+    Head "Что делаем"
+    Say "  1) добавить галочку"
+    Say "  2) переименовать / изменить описание"
+    Say "  3) изменить привязку мода к галочкам"
+    Say "  4) удалить галочку"
+    $act = Read-Host "`nВариант [1]"
+    if (-not $act) { $act = '1' }
+    switch ($act) {
+        '2' { Do-Rename; exit 0 }
+        '3' { Do-Rebind; exit 0 }
+        '4' { Do-Remove; exit 0 }
+        '1' { }
+        default { Say "Отменено." Yellow; exit 0 }
+    }
 }
 
 # ---------- выбираем мод ----------
@@ -272,7 +502,7 @@ if ($DryRun) {
 }
 
 Copy-Item 'unsup.toml' 'unsup.toml.bak' -Force
-Add-Content 'unsup.toml' $add
+Append-Utf8 'unsup.toml' $add
 Say "  готово, копия старого файла — unsup.toml.bak" Green
 
 Head "Дальше"

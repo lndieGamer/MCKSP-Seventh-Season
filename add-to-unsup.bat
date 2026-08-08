@@ -18,7 +18,8 @@ echo  Галочка в unsup
 echo  ---------------
 echo   1 — показать клиентские моды без галочки
 echo   2 — добавить галочку
-echo   3 — то же, но только показать, что будет
+echo   3 — правка: переименовать, перепривязать, удалить
+echo   4 — добавить галочку, только показать что будет
 echo.
 set "CH="
 set /p CH=  Выбор [1]: 
@@ -26,7 +27,8 @@ if "%CH%"=="" set "CH=1"
 
 if "%CH%"=="1" goto :list
 if "%CH%"=="2" goto :add
-if "%CH%"=="3" goto :dry
+if "%CH%"=="3" goto :edit
+if "%CH%"=="4" goto :dry
 
 echo.
 echo  [!] Неизвестный вариант: %CH%
@@ -39,6 +41,10 @@ goto :done
 :add
 call :ask
 call :run "%MOD%"
+goto :done
+
+:edit
+call :run -Edit
 goto :done
 
 :dry

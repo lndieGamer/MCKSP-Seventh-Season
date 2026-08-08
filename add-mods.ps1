@@ -20,6 +20,22 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+
+# Read-Host в PowerShell 5.1 при chcp 65001 возвращает «?» вместо кириллицы,
+# пока консоли не задана кодировка явно.
+try {
+    [Console]::OutputEncoding = New-Object Text.UTF8Encoding $false
+    [Console]::InputEncoding  = New-Object Text.UTF8Encoding $false
+} catch { }
+
+# Add-Content в Windows PowerShell 5.1 пишет в системной ANSI-кодировке, а не
+# в UTF-8: если она не кириллическая, весь текст превращается в «?». Именно
+# так испортились названия галочек. Пишем байты сами.
+function Append-Utf8($path, $text) {
+    if (-not (Test-Path $path)) { New-Item $path -ItemType File -Force | Out-Null }
+    [IO.File]::AppendAllText(
+        (Resolve-Path $path).Path, $text, (New-Object Text.UTF8Encoding $false))
+}
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 $UA = @{ 'User-Agent' = 'packwiz-helper/1.0 (private modpack)' }
 
@@ -228,7 +244,7 @@ flavors = ["$($c.Id)_on"]
     if (-not $add) { return }
     if ($DryRun) { Say "`n  Сухой прогон — unsup.toml не тронут." Magenta; return }
 
-    Add-Content 'unsup.toml' $add
+    Append-Utf8 'unsup.toml' $add
     Say ""
     Say "  unsup.toml дополнен." Green
     Say "  Не забудьте добавить новые группы в setup-mckspack.iss," Yellow

@@ -23,6 +23,22 @@ param(
 
 $ErrorActionPreference = 'Stop'
 
+# Read-Host в PowerShell 5.1 при chcp 65001 возвращает «?» вместо кириллицы,
+# пока консоли не задана кодировка явно.
+try {
+    [Console]::OutputEncoding = New-Object Text.UTF8Encoding $false
+    [Console]::InputEncoding  = New-Object Text.UTF8Encoding $false
+} catch { }
+
+# Add-Content в Windows PowerShell 5.1 пишет в системной ANSI-кодировке, а не
+# в UTF-8: если она не кириллическая, весь текст превращается в «?». Именно
+# так испортились названия галочек. Пишем байты сами.
+function Append-Utf8($path, $text) {
+    if (-not (Test-Path $path)) { New-Item $path -ItemType File -Force | Out-Null }
+    [IO.File]::AppendAllText(
+        (Resolve-Path $path).Path, $text, (New-Object Text.UTF8Encoding $false))
+}
+
 function Say($t, $c = 'Gray') { Write-Host $t -ForegroundColor $c }
 function Head($t) { Write-Host ""; Write-Host "== $t" -ForegroundColor Cyan }
 
@@ -338,7 +354,8 @@ $ignore = '.packwizignore'
 $listName = 'server-mods-expected.txt'
 $ign = if (Test-Path $ignore) { Get-Content $ignore } else { @() }
 if ($ign -notcontains $listName) {
-    Add-Content $ignore $listName
+    # имя файла тут чисто ASCII, но пусть везде будет один способ записи
+    Append-Utf8 $ignore "$listName`n"
     Say "`n  $listName добавлен в $ignore" DarkGray
 }
 

@@ -26,6 +26,22 @@ param(
 )
 
 $ErrorActionPreference = 'Stop'
+
+# Read-Host в PowerShell 5.1 при chcp 65001 возвращает «?» вместо кириллицы,
+# пока консоли не задана кодировка явно.
+try {
+    [Console]::OutputEncoding = New-Object Text.UTF8Encoding $false
+    [Console]::InputEncoding  = New-Object Text.UTF8Encoding $false
+} catch { }
+
+# Add-Content в Windows PowerShell 5.1 пишет в системной ANSI-кодировке, а не
+# в UTF-8: если она не кириллическая, весь текст превращается в «?». Именно
+# так испортились названия галочек. Пишем байты сами.
+function Append-Utf8($path, $text) {
+    if (-not (Test-Path $path)) { New-Item $path -ItemType File -Force | Out-Null }
+    [IO.File]::AppendAllText(
+        (Resolve-Path $path).Path, $text, (New-Object Text.UTF8Encoding $false))
+}
 $UA = @{ 'User-Agent' = 'mckspack-helper/1.0 (private modpack)' }
 
 function Say($t, $c = 'Gray') { Write-Host $t -ForegroundColor $c }
@@ -179,9 +195,27 @@ if (-not $To) {
     }
 }
 
-if ($To -eq $mod.Side) { Say "`nСторона уже $To — менять нечего." Yellow; exit 0 }
+# Сторона может уже быть нужной — но галочки при этом может не быть.
+# Ради неё одной и заходят чаще всего, поэтому не выходим сразу.
+$sideChanged = $true
+if ($To -eq $mod.Side) {
+    $sideChanged = $false
+    Say ""
+    Say "  Сторона уже $To — менять её не нужно." Yellow
+
+    $bound = $false
+    if (Test-Path 'unsup.toml') {
+        $tmpToml = Get-Content 'unsup.toml' -Raw
+        $bound = ($tmpToml -match [regex]::Escape("[metafile.`"$($mod.Id)`"]")) -or
+                 ($tmpToml -match [regex]::Escape("[metafile.$($mod.Id)]"))
+    }
+
+    if ($To -ne 'client' -or $bound) { exit 0 }
+    Say "  Но галочки в unsup.toml у него нет — предложу завести." DarkGray
+}
 
 # ---------- предупреждения ----------
+if ($sideChanged) {
 Head "Проверки"
 
 $dependents = @(Get-Dependents $mod.Id)
@@ -252,6 +286,7 @@ if ($DryRun) {
     [IO.File]::WriteAllText($mod.Path, $t, (New-Object Text.UTF8Encoding $false))
     Say "  $($mod.Id).pw.toml обновлён" Green
 }
+}
 
 # ---------- галочка в unsup.toml ----------
 if (Test-Path 'unsup.toml') {
@@ -297,7 +332,7 @@ name = "Отключить"
 flavors = ["$($mod.Id)_on"]
 "@
             if ($DryRun) { Say "    сухой прогон — unsup.toml не тронут" Magenta }
-            else { Add-Content 'unsup.toml' $add; Say "    галочка добавлена" Green }
+            else { Append-Utf8 'unsup.toml' $add; Say "    галочка добавлена" Green }
         }
     }
 }

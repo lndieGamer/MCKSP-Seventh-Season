@@ -1,0 +1,480 @@
+# unsup: Ð³Ð°Ð»Ð¾Ñ‡ÐºÐ° Ð½Ð° ÐºÐ°Ð¶Ð´Ñ‹Ð¹ ÐºÐ»Ð¸ÐµÐ½Ñ‚ÑÐºÐ¸Ð¹ Ð¼Ð¾Ð´.
+# Ð›ÐµÐ¶Ð¸Ñ‚ Ñ€ÑÐ´Ð¾Ð¼ Ñ pack.toml, packwiz ÐµÐ³Ð¾ Ð½Ðµ Ñ‚Ñ€Ð¾Ð³Ð°ÐµÑ‚.
+# Ð”Ð¾Ð¿Ð¾Ð»Ð½ÑÐµÑ‚ÑÑ ÑÐºÑ€Ð¸Ð¿Ñ‚Ð°Ð¼Ð¸ add-mods.ps1 Ð¸ set-side.ps1.
+#
+# name = "<Ð½Ð°Ð·Ð²Ð°Ð½Ð¸Ðµ Ð¼Ð¾Ð´Ð°> (<Ñ‡Ñ‚Ð¾ Ð¾Ð½ Ð´ÐµÐ»Ð°ÐµÑ‚>)" â€” Ð² Ð¾ÐºÐ½Ðµ Ð²Ñ‹Ð±Ð¾Ñ€Ð° Ð²Ð¸Ð´Ð½Ð°
+# Ñ‚Ð¾Ð»ÑŒÐºÐ¾ ÑÑ‚Ð° ÑÑ‚Ñ€Ð¾ÐºÐ°, Ð¿Ð¾ÑÑ‚Ð¾Ð¼Ñƒ Ð¸Ð¼Ñ Ð¼Ð¾Ð´Ð° Ð´Ð¾Ð»Ð¶Ð½Ð¾ Ð±Ñ‹Ñ‚ÑŒ Ð² Ð½ÐµÐ¹.
+#
+# Ð—Ð°Ð²Ð¸ÑÐ¸Ð¼Ð¾ÑÑ‚ÐµÐ¹ Ñƒ Ð³Ñ€ÑƒÐ¿Ð¿ Ð½ÐµÑ‚, unsup Ð¸Ñ… Ð½Ðµ Ð¿Ð¾Ð´Ð´ÐµÑ€Ð¶Ð¸Ð²Ð°ÐµÑ‚. Ð’Ð¼ÐµÑÑ‚Ð¾ ÑÑ‚Ð¾Ð³Ð¾
+# Ð±Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÐ° Ð¿ÐµÑ€ÐµÑ‡Ð¸ÑÐ»ÑÐµÑ‚ Ð³Ð°Ð»Ð¾Ñ‡ÐºÐ¸ Ð²ÑÐµÑ… ÑÐ²Ð¾Ð¸Ñ… Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»ÐµÐ¹: Ñ„Ð»ÐµÐ¹Ð²Ð¾Ñ€Ñ‹ Ñ„Ð°Ð¹Ð»Ð°
+# Ð¿Ñ€Ð¾Ð²ÐµÑ€ÑÑŽÑ‚ÑÑ Ð¿Ð¾ Ð˜Ð›Ð˜, Ð¿Ð¾ÑÑ‚Ð¾Ð¼Ñƒ Ð¾Ð½Ð° ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑÑ, ÐµÑÐ»Ð¸ Ð²ÐºÐ»ÑŽÑ‡Ñ‘Ð½ Ñ…Ð¾Ñ‚Ñ Ð±Ñ‹ Ð¾Ð´Ð¸Ð½ Ð¼Ð¾Ð´,
+# ÐºÐ¾Ñ‚Ð¾Ñ€Ð¾Ð¼Ñƒ Ð¾Ð½Ð° Ð½ÑƒÐ¶Ð½Ð°. ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ Ð±Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÑƒ Â«Ð¸Ð·-Ð¿Ð¾Ð´Â» Ð¼Ð¾Ð´Ð° Ð½ÐµÐ²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾.
+
+[flavor_groups."3dskinlayers"]
+name = "3D Skin Layers (ÐžÐ±ÑŠÑ‘Ð¼Ð½Ñ‹Ðµ ÑÐ»Ð¾Ð¸ ÑÐºÐ¸Ð½Ð°)"
+description = "Ð¨Ð»ÑÐ¿Ð°, ÐºÑƒÑ€Ñ‚ÐºÐ° Ð¸ Ð¿Ñ€Ð¾Ñ‡Ð¸Ðµ ÑÐ»Ð¾Ð¸ ÑÐºÐ¸Ð½Ð° Ñ€Ð¸ÑÑƒÑŽÑ‚ÑÑ Ñ Ñ‚Ð¾Ð»Ñ‰Ð¸Ð½Ð¾Ð¹, Ð° Ð½Ðµ Ð¿Ð»Ð¾ÑÐºÐ¸Ð¼Ð¸."
+side = "client"
+
+[[flavor_groups."3dskinlayers".choices]]
+id = "3dskinlayers_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."3dskinlayers".choices]]
+id = "3dskinlayers_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."advancement-plaques"]
+name = "Advancement Plaques (Ð¢Ð°Ð±Ð»Ð¸Ñ‡ÐºÐ¸ Ð´Ð¾ÑÑ‚Ð¸Ð¶ÐµÐ½Ð¸Ð¹)"
+description = "Ð’Ð¼ÐµÑÑ‚Ð¾ ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð½Ð¾Ð³Ð¾ Ñ‚Ð¾ÑÑ‚Ð° â€” ÐºÑ€ÑƒÐ¿Ð½Ð°Ñ Ð¿Ð»Ð°ÑˆÐºÐ° Ñ Ð°Ð½Ð¸Ð¼Ð°Ñ†Ð¸ÐµÐ¹.\nÐ’Ð¼ÐµÑÑ‚Ðµ Ñ Ð½Ð¸Ð¼ ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑÑ Ð±Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÐ° Iceberg."
+side = "client"
+
+[[flavor_groups."advancement-plaques".choices]]
+id = "advancement-plaques_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."advancement-plaques".choices]]
+id = "advancement-plaques_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."ambientsounds"]
+name = "AmbientSounds 6 (Ð—Ð²ÑƒÐºÐ¾Ð²Ð¾Ðµ Ð¾ÐºÑ€ÑƒÐ¶ÐµÐ½Ð¸Ðµ)"
+description = "Ð¨ÑƒÐ¼Ñ‹ Ð»ÐµÑÐ°, Ð¿ÐµÑ‰ÐµÑ€ Ð¸ Ð¿Ð¾Ð³Ð¾Ð´Ñ‹. Ð”ÐµÑ€Ð¶Ð¸Ñ‚ Ð² Ð¿Ð°Ð¼ÑÑ‚Ð¸ Ð¾ÐºÐ¾Ð»Ð¾ 85 ÐœÐ‘ Ð°ÑƒÐ´Ð¸Ð¾."
+side = "client"
+
+[[flavor_groups."ambientsounds".choices]]
+id = "ambientsounds_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."ambientsounds".choices]]
+id = "ambientsounds_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."better-advancements"]
+name = "Better Advancements (Ð£Ð´Ð¾Ð±Ð½Ñ‹Ð¹ ÑÐºÑ€Ð°Ð½ Ð´Ð¾ÑÑ‚Ð¸Ð¶ÐµÐ½Ð¸Ð¹)"
+description = "ÐŸÐµÑ€ÐµÑ€Ð¸ÑÐ¾Ð²Ð°Ð½Ð½Ð¾Ðµ Ð¾ÐºÐ½Ð¾ Ð´Ð¾ÑÑ‚Ð¸Ð¶ÐµÐ½Ð¸Ð¹ Ñ Ð¿Ð¾Ð¸ÑÐºÐ¾Ð¼ Ð¸ Ð¼Ð°ÑÑˆÑ‚Ð°Ð±Ð¸Ñ€Ð¾Ð²Ð°Ð½Ð¸ÐµÐ¼."
+side = "client"
+
+[[flavor_groups."better-advancements".choices]]
+id = "better-advancements_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."better-advancements".choices]]
+id = "better-advancements_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."better-ping-display"]
+name = "Better Ping Display (ÐŸÐ¸Ð½Ð³ Ñ†Ð¸Ñ„Ñ€Ð°Ð¼Ð¸)"
+description = "Ð¢Ð¾Ñ‡Ð½Ð¾Ðµ Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ðµ Ð¿Ð¸Ð½Ð³Ð° Ð² ÑÐ¿Ð¸ÑÐºÐµ Ð¸Ð³Ñ€Ð¾ÐºÐ¾Ð² Ð²Ð¼ÐµÑÑ‚Ð¾ Ð¿Ð°Ð»Ð¾Ñ‡ÐµÐº."
+side = "client"
+
+[[flavor_groups."better-ping-display".choices]]
+id = "better-ping-display_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."better-ping-display".choices]]
+id = "better-ping-display_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."create-better-fps"]
+name = "Create Better FPS (ÐžÐ¿Ñ‚Ð¸Ð¼Ð¸Ð·Ð°Ñ†Ð¸Ñ Create)"
+description = "Ð£ÑÐºÐ¾Ñ€ÑÐµÑ‚ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÑƒ Ð¼ÐµÑ…Ð°Ð½Ð¸Ð·Ð¼Ð¾Ð². ÐŸÐ¾Ð»ÐµÐ·Ð½Ð¾ Ð½Ð° Ð±Ð¾Ð»ÑŒÑˆÐ¸Ñ… Ñ„Ð°Ð±Ñ€Ð¸ÐºÐ°Ñ…."
+side = "client"
+
+[[flavor_groups."create-better-fps".choices]]
+id = "create-better-fps_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."create-better-fps".choices]]
+id = "create-better-fps_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."cubes-without-borders"]
+name = "Cubes Without Borders (Ð‘ÐµÑÑˆÐ¾Ð²Ð½Ñ‹Ðµ Ð±Ð»Ð¾ÐºÐ¸)"
+description = "Ð£Ð±Ð¸Ñ€Ð°ÐµÑ‚ ÑˆÐ²Ñ‹ Ð¼ÐµÐ¶Ð´Ñƒ Ð¾Ð´Ð¸Ð½Ð°ÐºÐ¾Ð²Ñ‹Ð¼Ð¸ Ð±Ð»Ð¾ÐºÐ°Ð¼Ð¸."
+side = "client"
+
+[[flavor_groups."cubes-without-borders".choices]]
+id = "cubes-without-borders_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."cubes-without-borders".choices]]
+id = "cubes-without-borders_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."distant-horizons"]
+name = "Distant Horizons (Ð”Ð°Ð»ÑŒÐ½ÑÑ Ð¿Ñ€Ð¾Ñ€Ð¸ÑÐ¾Ð²ÐºÐ°)"
+description = "Ð›Ð°Ð½Ð´ÑˆÐ°Ñ„Ñ‚ Ð½Ð° 256+ Ñ‡Ð°Ð½ÐºÐ¾Ð² Ñ‡ÐµÑ€ÐµÐ· ÑƒÐ¿Ñ€Ð¾Ñ‰Ñ‘Ð½Ð½Ñ‹Ðµ Ð¼Ð¾Ð´ÐµÐ»Ð¸.\nÐ¡Ð°Ð¼Ð°Ñ Ñ‚ÑÐ¶Ñ‘Ð»Ð°Ñ Ð¾Ð¿Ñ†Ð¸Ñ Ð´Ð»Ñ Ð²Ð¸Ð´ÐµÐ¾ÐºÐ°Ñ€Ñ‚Ñ‹."
+side = "client"
+
+[[flavor_groups."distant-horizons".choices]]
+id = "distant-horizons_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."distant-horizons".choices]]
+id = "distant-horizons_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."enchantment-descriptions"]
+name = "Enchantment Descriptions (ÐžÐ¿Ð¸ÑÐ°Ð½Ð¸Ñ Ð·Ð°Ñ‡Ð°Ñ€Ð¾Ð²Ð°Ð½Ð¸Ð¹)"
+description = "ÐŸÐ¾ÐºÐ°Ð·Ñ‹Ð²Ð°ÐµÑ‚, Ñ‡Ñ‚Ð¾ Ð¸Ð¼ÐµÐ½Ð½Ð¾ Ð´ÐµÐ»Ð°ÐµÑ‚ Ð·Ð°Ñ‡Ð°Ñ€Ð¾Ð²Ð°Ð½Ð¸Ðµ, Ð¿Ñ€ÑÐ¼Ð¾ Ð² Ð¿Ð¾Ð´ÑÐºÐ°Ð·ÐºÐµ."
+side = "client"
+
+[[flavor_groups."enchantment-descriptions".choices]]
+id = "enchantment-descriptions_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."enchantment-descriptions".choices]]
+id = "enchantment-descriptions_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."entity-model-features"]
+name = "[EMF] Entity Model Features (ÐœÐ¾Ð´ÐµÐ»Ð¸ Ð¼Ð¾Ð±Ð¾Ð² Ð¸Ð· Ñ€ÐµÑÑƒÑ€ÑÐ¿Ð°ÐºÐ¾Ð²)"
+description = "ÐŸÐ¾Ð·Ð²Ð¾Ð»ÑÐµÑ‚ Ñ€ÐµÑÑƒÑ€ÑÐ¿Ð°ÐºÐ°Ð¼ Ð¼ÐµÐ½ÑÑ‚ÑŒ Ñ„Ð¾Ñ€Ð¼Ñƒ Ð¼Ð¾Ð±Ð¾Ð², Ð° Ð½Ðµ Ñ‚Ð¾Ð»ÑŒÐºÐ¾ Ñ‚ÐµÐºÑÑ‚ÑƒÑ€Ñ‹.\nÐ¢Ñ€ÐµÐ±ÑƒÐµÑ‚ ETF â€” Ð¾Ð½ Ð²ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑÑ ÑÐ°Ð¼, Ð´Ð°Ð¶Ðµ ÐµÑÐ»Ð¸ Ð¾Ñ‚ÐºÐ»ÑŽÑ‡Ñ‘Ð½ Ð¾Ñ‚Ð´ÐµÐ»ÑŒÐ½Ð¾."
+side = "client"
+
+[[flavor_groups."entity-model-features".choices]]
+id = "entity-model-features_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."entity-model-features".choices]]
+id = "entity-model-features_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."entity-texture-features-fabric"]
+name = "[ETF] Entity Texture Features (Ð”ÐµÑ‚Ð°Ð»ÑŒÐ½Ñ‹Ðµ Ñ‚ÐµÐºÑÑ‚ÑƒÑ€Ñ‹ Ð¼Ð¾Ð±Ð¾Ð²)"
+description = "Ð¡Ð»ÑƒÑ‡Ð°Ð¹Ð½Ñ‹Ðµ Ð¸ ÑÐ¼Ð¸ÑÑÐ¸Ð²Ð½Ñ‹Ðµ Ñ‚ÐµÐºÑÑ‚ÑƒÑ€Ñ‹ ÑÑƒÑ‰ÐµÑÑ‚Ð² Ð¸Ð· Ñ€ÐµÑÑƒÑ€ÑÐ¿Ð°ÐºÐ¾Ð².\nÐžÑÑ‚Ð°Ð½ÐµÑ‚ÑÑ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½, ÐµÑÐ»Ð¸ Ð²ÐºÐ»ÑŽÑ‡Ñ‘Ð½ EMF."
+side = "client"
+
+[[flavor_groups."entity-texture-features-fabric".choices]]
+id = "entity-texture-features-fabric_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."entity-texture-features-fabric".choices]]
+id = "entity-texture-features-fabric_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."entityculling"]
+name = "Entity Culling (ÐžÑ‚ÑÐµÑ‡ÐµÐ½Ð¸Ðµ Ð½ÐµÐ²Ð¸Ð´Ð¸Ð¼Ñ‹Ñ… Ð¼Ð¾Ð±Ð¾Ð²)"
+description = "ÐÐµ Ñ€Ð¸ÑÑƒÐµÑ‚ ÑÑƒÑ‰ÐµÑÑ‚Ð² Ð·Ð° ÑÑ‚ÐµÐ½Ð°Ð¼Ð¸. Ð—Ð°Ð¼ÐµÑ‚Ð½Ð¾ Ð¿Ð¾Ð¼Ð¾Ð³Ð°ÐµÑ‚ Ð½Ð° Ñ„ÐµÑ€Ð¼Ðµ Ð¼Ð¾Ð±Ð¾Ð²."
+side = "client"
+
+[[flavor_groups."entityculling".choices]]
+id = "entityculling_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."entityculling".choices]]
+id = "entityculling_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."fancymenu"]
+name = "FancyMenu (ÐžÑ„Ð¾Ñ€Ð¼Ð»ÐµÐ½Ð½Ð¾Ðµ Ð¼ÐµÐ½ÑŽ)"
+description = "ÐšÑ€Ð°ÑÐ¸Ð²Ð¾Ðµ Ð³Ð»Ð°Ð²Ð½Ð¾Ðµ Ð¼ÐµÐ½ÑŽ Ð²Ð¼ÐµÑÑ‚Ð¾ ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð½Ð¾Ð³Ð¾.\nÐ’Ð¼ÐµÑÑ‚Ðµ Ñ Ð½Ð¸Ð¼ ÑÑ‚Ð°Ð²ÑÑ‚ÑÑ Ð±Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÐ¸ Konkrete Ð¸ Melody."
+side = "client"
+
+[[flavor_groups."fancymenu".choices]]
+id = "fancymenu_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."fancymenu".choices]]
+id = "fancymenu_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."irisshaders"]
+name = "Iris Shaders (ÐŸÐ¾Ð´Ð´ÐµÑ€Ð¶ÐºÐ° ÑˆÐµÐ¹Ð´ÐµÑ€Ð¾Ð²)"
+description = "Ð”Ð°Ñ‘Ñ‚ Ð²Ð¾Ð·Ð¼Ð¾Ð¶Ð½Ð¾ÑÑ‚ÑŒ Ð¿Ð¾Ð´ÐºÐ»ÑŽÑ‡Ð°Ñ‚ÑŒ ÑˆÐµÐ¹Ð´ÐµÑ€Ð¿Ð°ÐºÐ¸."
+side = "client"
+
+[[flavor_groups."irisshaders".choices]]
+id = "irisshaders_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."irisshaders".choices]]
+id = "irisshaders_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."jade-addons"]
+name = "Jade Addons (Ð”Ð°Ð½Ð½Ñ‹Ðµ Ð¼Ð¾Ð´Ð¾Ð² Ð² Ð¿Ð¾Ð´ÑÐºÐ°Ð·ÐºÐ°Ñ…)"
+description = "Ð”Ð¾Ð±Ð°Ð²Ð»ÑÐµÑ‚ Ð² Ð¿Ð¾Ð´ÑÐºÐ°Ð·ÐºÑƒ Jade Ð¸Ð½Ñ„Ð¾Ñ€Ð¼Ð°Ñ†Ð¸ÑŽ Ð¸Ð· Create Ð¸ Ð´Ñ€ÑƒÐ³Ð¸Ñ… Ð¼Ð¾Ð´Ð¾Ð²."
+side = "client"
+
+[[flavor_groups."jade-addons".choices]]
+id = "jade-addons_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."jade-addons".choices]]
+id = "jade-addons_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."jade-sable-compat"]
+name = "Jade Sable Compat (Jade Ð½Ð° Ð»ÐµÑ‚Ð°ÑŽÑ‰Ð¸Ñ… Ð¼Ð°ÑˆÐ¸Ð½Ð°Ñ…)"
+description = "ÐŸÐ¾Ð´ÑÐºÐ°Ð·ÐºÐ¸ Jade Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÑŽÑ‚ Ð½Ð° ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ†Ð¸ÑÑ… Create Aeronautics."
+side = "client"
+
+[[flavor_groups."jade-sable-compat".choices]]
+id = "jade-sable-compat_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."jade-sable-compat".choices]]
+id = "jade-sable-compat_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."just-zoom"]
+name = "Just Zoom (Ð—ÑƒÐ¼)"
+description = "ÐŸÑ€Ð¸Ð±Ð»Ð¸Ð¶ÐµÐ½Ð¸Ðµ Ð¿Ð¾ ÐºÐ»Ð°Ð²Ð¸ÑˆÐµ, ÐºÐ°Ðº Ð² Ð¾Ð¿Ñ‚Ð¸Ñ„Ð°Ð¹Ð½Ðµ.\nÐ’Ð¼ÐµÑÑ‚Ðµ Ñ Ð½Ð¸Ð¼ ÑÑ‚Ð°Ð²Ð¸Ñ‚ÑÑ Ð±Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÐ° Konkrete."
+side = "client"
+
+[[flavor_groups."just-zoom".choices]]
+id = "just-zoom_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."just-zoom".choices]]
+id = "just-zoom_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."legendary-tooltips"]
+name = "Legendary Tooltips (ÐšÑ€Ð°ÑÐ¸Ð²Ñ‹Ðµ Ð¿Ð¾Ð´ÑÐºÐ°Ð·ÐºÐ¸)"
+description = "Ð Ð°Ð¼ÐºÐ¸ Ð¿Ð¾Ð´ÑÐºÐ°Ð·Ð¾Ðº Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ð¾Ð² Ð² Ð·Ð°Ð²Ð¸ÑÐ¸Ð¼Ð¾ÑÑ‚Ð¸ Ð¾Ñ‚ Ñ€ÐµÐ´ÐºÐ¾ÑÑ‚Ð¸.\nÐ’Ð¼ÐµÑÑ‚Ðµ Ñ Ð½Ð¸Ð¼ ÑÑ‚Ð°Ð²ÑÑ‚ÑÑ Ð±Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÐ¸ Iceberg Ð¸ Prism."
+side = "client"
+
+[[flavor_groups."legendary-tooltips".choices]]
+id = "legendary-tooltips_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."legendary-tooltips".choices]]
+id = "legendary-tooltips_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."more-overlays-updated"]
+name = "More Overlays Updated (ÐžÐ²ÐµÑ€Ð»ÐµÐ¸)"
+description = "ÐŸÐ¾Ð´ÑÐ²ÐµÑ‚ÐºÐ° Ð·Ð¾Ð½ ÑÐ¿Ð°Ð²Ð½Ð° Ð¼Ð¾Ð±Ð¾Ð² Ð¸ Ð³Ñ€Ð°Ð½Ð¸Ñ† Ñ‡Ð°Ð½ÐºÐ¾Ð²."
+side = "client"
+
+[[flavor_groups."more-overlays-updated".choices]]
+id = "more-overlays-updated_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."more-overlays-updated".choices]]
+id = "more-overlays-updated_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."mouse-tweaks"]
+name = "Mouse Tweaks (Ð£Ð´Ð¾Ð±Ð½Ð°Ñ Ð¼Ñ‹ÑˆÑŒ)"
+description = "ÐŸÐµÑ€ÐµÑ‚Ð°ÑÐºÐ¸Ð²Ð°Ð½Ð¸Ðµ Ð¸ Ñ€Ð°ÑÐºÐ»Ð°Ð´ÐºÐ° Ð¿Ñ€ÐµÐ´Ð¼ÐµÑ‚Ð¾Ð² Ð² Ð¸Ð½Ð²ÐµÐ½Ñ‚Ð°Ñ€Ðµ Ð¼Ñ‹ÑˆÑŒÑŽ."
+side = "client"
+
+[[flavor_groups."mouse-tweaks".choices]]
+id = "mouse-tweaks_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."mouse-tweaks".choices]]
+id = "mouse-tweaks_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."particle-rain"]
+name = "Particle Rain (ÐŸÐ¾Ð³Ð¾Ð´Ð½Ñ‹Ðµ Ñ‡Ð°ÑÑ‚Ð¸Ñ†Ñ‹)"
+description = "Ð”Ð¾Ð¶Ð´ÑŒ Ð¸ ÑÐ½ÐµÐ³ Ñ‡Ð°ÑÑ‚Ð¸Ñ†Ð°Ð¼Ð¸ Ð²Ð¼ÐµÑÑ‚Ð¾ ÑÑ‚Ð°Ð½Ð´Ð°Ñ€Ñ‚Ð½Ñ‹Ñ… Ð¿Ð¾Ð»Ð¾Ñ."
+side = "client"
+
+[[flavor_groups."particle-rain".choices]]
+id = "particle-rain_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."particle-rain".choices]]
+id = "particle-rain_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."sodium"]
+name = "Sodium (Ð£ÑÐºÐ¾Ñ€ÐµÐ½Ð¸Ðµ Ð¾Ñ‚Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸)"
+description = "ÐŸÐµÑ€ÐµÐ¿Ð¸ÑÐ°Ð½Ð½Ñ‹Ð¹ Ñ€ÐµÐ½Ð´ÐµÑ€, Ð¾Ð±Ñ‹Ñ‡Ð½Ð¾ Ð´Ð°Ñ‘Ñ‚ Ð·Ð°Ð¼ÐµÑ‚Ð½Ñ‹Ð¹ Ð¿Ñ€Ð¸Ñ€Ð¾ÑÑ‚ FPS.\nÐžÑÑ‚Ð°Ð½ÐµÑ‚ÑÑ ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½, ÐµÑÐ»Ð¸ Ð²ÐºÐ»ÑŽÑ‡ÐµÐ½Ñ‹ Sodium Extra Ð¸Ð»Ð¸ SSRD â€” Ð¾Ð½Ð¸ Ð±ÐµÐ· Ð½ÐµÐ³Ð¾ Ð½Ðµ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÑŽÑ‚."
+side = "client"
+
+[[flavor_groups."sodium".choices]]
+id = "sodium_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."sodium".choices]]
+id = "sodium_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."sodium-extra"]
+name = "Sodium Extra (ÐÐ°ÑÑ‚Ñ€Ð¾Ð¹ÐºÐ¸ Ð³Ñ€Ð°Ñ„Ð¸ÐºÐ¸)"
+description = "Ð Ð°ÑÑˆÐ¸Ñ€ÐµÐ½Ð½Ð¾Ðµ Ð¼ÐµÐ½ÑŽ Ð½Ð°ÑÑ‚Ñ€Ð¾ÐµÐº Ðº Sodium. Ð’ÐºÐ»ÑŽÑ‡Ð°ÐµÑ‚ Sodium, Ð´Ð°Ð¶Ðµ ÐµÑÐ»Ð¸ Ñ‚Ð¾Ñ‚ Ð¾Ñ‚ÐºÐ»ÑŽÑ‡Ñ‘Ð½."
+side = "client"
+
+[[flavor_groups."sodium-extra".choices]]
+id = "sodium-extra_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."sodium-extra".choices]]
+id = "sodium-extra_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."ssrd"]
+name = "Separate Sable Render Distance (ÐžÑ‚Ð´ÐµÐ»ÑŒÐ½Ð°Ñ Ð´Ð°Ð»ÑŒÐ½Ð¾ÑÑ‚ÑŒ Ð´Ð»Ñ Ð¼Ð°ÑˆÐ¸Ð½)"
+description = "Ð¡Ð²Ð¾Ñ Ð´Ð¸ÑÑ‚Ð°Ð½Ñ†Ð¸Ñ Ð¿Ñ€Ð¾Ñ€Ð¸ÑÐ¾Ð²ÐºÐ¸ Ð´Ð»Ñ ÐºÐ¾Ð½ÑÑ‚Ñ€ÑƒÐºÑ†Ð¸Ð¹ Create Aeronautics.\nÐ’ÐºÐ»ÑŽÑ‡Ð°ÐµÑ‚ Sodium, Ð´Ð°Ð¶Ðµ ÐµÑÐ»Ð¸ Ñ‚Ð¾Ñ‚ Ð¾Ñ‚ÐºÐ»ÑŽÑ‡Ñ‘Ð½."
+side = "client"
+
+[[flavor_groups."ssrd".choices]]
+id = "ssrd_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."ssrd".choices]]
+id = "ssrd_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."xaeros-minimap"]
+name = "Xaero's Minimap (ÐœÐ¸Ð½Ð¸-ÐºÐ°Ñ€Ñ‚Ð°)"
+description = "ÐšÐ°Ñ€Ñ‚Ð° Ð² ÑƒÐ³Ð»Ñƒ ÑÐºÑ€Ð°Ð½Ð° Ñ Ð¾Ñ‚Ð¼ÐµÑ‚ÐºÐ°Ð¼Ð¸ ÑÑƒÑ‰ÐµÑÑ‚Ð² Ð¸ Ð¸Ð³Ñ€Ð¾ÐºÐ¾Ð²."
+side = "client"
+
+[[flavor_groups."xaeros-minimap".choices]]
+id = "xaeros-minimap_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."xaeros-minimap".choices]]
+id = "xaeros-minimap_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[flavor_groups."xaeros-world-map"]
+name = "Xaero's World Map (ÐœÐ¸Ñ€Ð¾Ð²Ð°Ñ ÐºÐ°Ñ€Ñ‚Ð°)"
+description = "ÐŸÐ¾Ð»Ð½Ð¾ÑÐºÑ€Ð°Ð½Ð½Ð°Ñ ÐºÐ°Ñ€Ñ‚Ð° Ð¿Ð¾ ÐºÐ»Ð°Ð²Ð¸ÑˆÐµ M, Ñ Ð¿ÑƒÑ‚ÐµÐ²Ñ‹Ð¼Ð¸ Ñ‚Ð¾Ñ‡ÐºÐ°Ð¼Ð¸."
+side = "client"
+
+[[flavor_groups."xaeros-world-map".choices]]
+id = "xaeros-world-map_on"
+name = "Ð’ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+[[flavor_groups."xaeros-world-map".choices]]
+id = "xaeros-world-map_off"
+name = "ÐžÑ‚ÐºÐ»ÑŽÑ‡Ð¸Ñ‚ÑŒ"
+
+# ---- Ð¿Ñ€Ð¸Ð²ÑÐ·ÐºÐ° Ð¼Ð¾Ð´Ð¾Ð² Ðº Ð³Ð°Ð»Ð¾Ñ‡ÐºÐ°Ð¼ ----
+
+[metafile."3dskinlayers"]
+flavors = ["3dskinlayers_on"]
+
+[metafile."advancement-plaques"]
+flavors = ["advancement-plaques_on"]
+
+[metafile."ambientsounds"]
+flavors = ["ambientsounds_on"]
+
+[metafile."better-advancements"]
+flavors = ["better-advancements_on"]
+
+[metafile."better-ping-display"]
+flavors = ["better-ping-display_on"]
+
+[metafile."create-better-fps"]
+flavors = ["create-better-fps_on"]
+
+[metafile."cubes-without-borders"]
+flavors = ["cubes-without-borders_on"]
+
+[metafile."distant-horizons"]
+flavors = ["distant-horizons_on"]
+
+[metafile."enchantment-descriptions"]
+flavors = ["enchantment-descriptions_on"]
+
+[metafile."entity-model-features"]
+flavors = ["entity-model-features_on"]
+
+[metafile."entity-texture-features-fabric"]
+flavors = ["entity-texture-features-fabric_on", "entity-model-features_on"]
+
+[metafile."entityculling"]
+flavors = ["entityculling_on"]
+
+[metafile."fancymenu"]
+flavors = ["fancymenu_on"]
+
+[metafile."irisshaders"]
+flavors = ["irisshaders_on"]
+
+[metafile."jade-addons"]
+flavors = ["jade-addons_on"]
+
+[metafile."jade-sable-compat"]
+flavors = ["jade-sable-compat_on"]
+
+[metafile."just-zoom"]
+flavors = ["just-zoom_on"]
+
+[metafile."legendary-tooltips"]
+flavors = ["legendary-tooltips_on"]
+
+[metafile."more-overlays-updated"]
+flavors = ["more-overlays-updated_on"]
+
+[metafile."mouse-tweaks"]
+flavors = ["mouse-tweaks_on"]
+
+[metafile."particle-rain"]
+flavors = ["particle-rain_on"]
+
+[metafile."sodium"]
+flavors = ["sodium_on", "sodium-extra_on", "ssrd_on"]
+
+[metafile."sodium-extra"]
+flavors = ["sodium-extra_on"]
+
+[metafile."ssrd"]
+flavors = ["ssrd_on"]
+
+[metafile."xaeros-minimap"]
+flavors = ["xaeros-minimap_on"]
+
+[metafile."xaeros-world-map"]
+flavors = ["xaeros-world-map_on"]
+
+# ---- Ð±Ð¸Ð±Ð»Ð¸Ð¾Ñ‚ÐµÐºÐ¸: ÑÐ²Ð¾ÐµÐ¹ Ð³Ð°Ð»Ð¾Ñ‡ÐºÐ¸ Ð½ÐµÑ‚, ÑÑ‚Ð°Ð²ÑÑ‚ÑÑ Ð²Ð¼ÐµÑÑ‚Ðµ Ñ Ð¿Ð¾Ñ‚Ñ€ÐµÐ±Ð¸Ñ‚ÐµÐ»ÑÐ¼Ð¸ ----
+
+[metafile."iceberg"]
+flavors = ["advancement-plaques_on", "legendary-tooltips_on"]
+
+[metafile."konkrete"]
+flavors = ["fancymenu_on", "just-zoom_on"]
+
+[metafile."melody"]
+flavors = ["fancymenu_on"]
+
+[metafile."prism-lib"]
+flavors = ["legendary-tooltips_on"]
+
+# fusion-connected-textures Ð½Ðµ Ð¾Ñ‚ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼: ÐµÐ³Ð¾ Ñ‚Ñ€ÐµÐ±ÑƒÐµÑ‚ rechiseled,
+# Ð° rechiseled ÑÑ‚Ð¾Ð¸Ñ‚ Ð½Ð° Ð¾Ð±ÐµÐ¸Ñ… ÑÑ‚Ð¾Ñ€Ð¾Ð½Ð°Ñ… Ð¸ Ð²ÑÐµÐ³Ð´Ð° ÑƒÑÑ‚Ð°Ð½Ð¾Ð²Ð»ÐµÐ½
+# coastal-waves Ð½Ðµ Ð¾Ñ‚ÐºÐ»ÑŽÑ‡Ð°ÐµÐ¼: Ñ€ÐµÐ³Ð¸ÑÑ‚Ñ€Ð¸Ñ€ÑƒÐµÑ‚ Ð¾Ð±ÑÐ·Ð°Ñ‚ÐµÐ»ÑŒÐ½Ñ‹Ð¹ ÑÐµÑ‚ÐµÐ²Ð¾Ð¹ ÐºÐ°Ð½Ð°Ð»
+# waves:presence, Ð¿Ð¾ÑÑ‚Ð¾Ð¼Ñƒ Ð¿ÐµÑ€ÐµÐ²ÐµÐ´Ñ‘Ð½ Ð² side = "both"
+
+[flavor_groups."voxy"]
+name = "voxy (Дальность прорисовки)"
+description = "Аналог Distant Horizons с лучшим визуалом и оптимизацией"
+side = "client"
+
+[[flavor_groups."voxy".choices]]
+id = "voxy_on"
+name = "????????"
+
+[[flavor_groups."voxy".choices]]
+id = "voxy_off"
+name = "?????????"
+
+[metafile."voxy"]
+flavors = ["voxy_on"]
+
+[flavor_groups."dynamiclights-reforged"]
+name = "Dynamic Lights"
+description = "???????????? ????????? ??????? ? ????"
+side = "client"
+
+[[flavor_groups."dynamiclights-reforged".choices]]
+id = "dynamiclights-reforged_on"
+name = "????????"
+
+[[flavor_groups."dynamiclights-reforged".choices]]
+id = "dynamiclights-reforged_off"
+name = "?????????"
+
+[metafile."dynamiclights-reforged"]
+flavors = ["dynamiclights-reforged_on"]
