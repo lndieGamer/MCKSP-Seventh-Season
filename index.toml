@@ -1204,6 +1204,11 @@ hash = "a445471ac6843bcf9fb76eabb4357de0357dfa7782be536a7827a26764fe45c1"
 metafile = true
 
 [[files]]
+file = "mods/axiom.pw.toml"
+hash = "d96e1e5aa63a1a6023578fc3d8f4de1239da8bd105769c43ed2798082ff0acf3"
+metafile = true
+
+[[files]]
 file = "mods/azimuth-api.pw.toml"
 hash = "b5ed2db0df4f472014d4e3ce55e54e0439a4b8e0eb898c23be4ec93e4e5f123a"
 metafile = true
