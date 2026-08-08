@@ -1509,11 +1509,6 @@ hash = "4bf529c0b36ea0e8e01dc12e80f69a703948d28f7587460526ff0a1330f9e891"
 metafile = true
 
 [[files]]
-file = "mods/distant-horizons.pw.toml"
-hash = "486e6bdf214665392f1583c9f1f70129932a7eca767c75f6cb6854491e53855d"
-metafile = true
-
-[[files]]
 file = "mods/doggy-talents-next.pw.toml"
 hash = "72a58cd1cec23bfb9a76ae07a82ad4569ff476cad5b7d2560da4633cdcc51936"
 metafile = true
@@ -1561,6 +1556,11 @@ metafile = true
 [[files]]
 file = "mods/ferritecore.pw.toml"
 hash = "dff824171060c79b327a4880c2f0546c727a041a489ef3af643ec2dcd9cd0c48"
+metafile = true
+
+[[files]]
+file = "mods/forgified-fabric-api.pw.toml"
+hash = "0141bc647b652e57375c9ce070a511f68b0bd24fe601c410c1a45dac9e8d443c"
 metafile = true
 
 [[files]]
@@ -1871,6 +1871,11 @@ metafile = true
 [[files]]
 file = "mods/shulkerboxtooltip.pw.toml"
 hash = "6b3c65eef473d729266b7467ad8354afb40cdd03889205e35467cf323080fe77"
+metafile = true
+
+[[files]]
+file = "mods/sinytra-connector.pw.toml"
+hash = "9b0e047e00acb875ec792bcf6ccceac0d5055bc215e7ce3d3d3b26949fb483d4"
 metafile = true
 
 [[files]]
