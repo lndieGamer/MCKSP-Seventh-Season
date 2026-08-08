@@ -1,0 +1,14 @@
+name = "MCKSP Seventh Season"
+author = "NotTheTea/lndieGamer"
+version = "1.0.0"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "b246b259cf262e088b6d41991104de0dc973ea7d310a0b03b0b36c8ed72328b1"
+
+[versions]
+minecraft = "1.21.1"
+neoforge = "21.1.248"
+unsup = "1.1.6"
