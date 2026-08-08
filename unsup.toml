@@ -1,14 +1,16 @@
 # unsup: галочка на каждый клиентский мод.
-# Файл лежит рядом с pack.toml, packwiz его не трогает.
-# Генерируется и дополняется скриптом add-mods.ps1.
+# Лежит рядом с pack.toml, packwiz его не трогает.
+# Дополняется скриптом add-mods.ps1 при добавлении новых модов.
 #
-# Семантика флейворов у файла — ИЛИ: мод ставится, если совпал хотя бы
-# один из перечисленных. На этом держится привязка библиотек: они
-# перечисляют галочки всех своих потребителей.
+# Зависимостей у групп нет — unsup их не поддерживает. Вместо этого
+# библиотека перечисляет галочки всех своих потребителей: флейворы
+# файла проверяются по ИЛИ, поэтому она ставится, если включён хотя бы
+# один мод, которому она нужна. Отключить библиотеку "из-под" мода,
+# который её требует, невозможно — и это защищает от падения.
 
 [flavor_groups."3dskinlayers"]
 name = "Объёмные слои скина"
-description = "Шляпа, куртка и прочие слои скина рисуются с толщиной, а не плоскими."
+description = "3D Skin Layers. Шляпа, куртка и прочие слои скина рисуются с толщиной, а не плоскими."
 side = "client"
 
 [[flavor_groups."3dskinlayers".choices]]
@@ -21,7 +23,7 @@ name = "Отключить"
 
 [flavor_groups."advancement-plaques"]
 name = "Таблички достижений"
-description = "Вместо стандартного тоста — крупная плашка с анимацией."
+description = "Advancement Plaques. Вместо стандартного тоста — крупная плашка с анимацией.\nВместе с ним ставится библиотека Iceberg."
 side = "client"
 
 [[flavor_groups."advancement-plaques".choices]]
@@ -34,7 +36,7 @@ name = "Отключить"
 
 [flavor_groups."ambientsounds"]
 name = "Звуковое окружение"
-description = "Шумы леса, пещер и погоды. Держит в памяти около 85 МБ аудио."
+description = "AmbientSounds 6. Шумы леса, пещер и погоды. Держит в памяти около 85 МБ аудио."
 side = "client"
 
 [[flavor_groups."ambientsounds".choices]]
@@ -47,7 +49,7 @@ name = "Отключить"
 
 [flavor_groups."better-advancements"]
 name = "Удобный экран достижений"
-description = "Перерисованное окно достижений с поиском и масштабированием."
+description = "Better Advancements. Перерисованное окно достижений с поиском и масштабированием."
 side = "client"
 
 [[flavor_groups."better-advancements".choices]]
@@ -60,7 +62,7 @@ name = "Отключить"
 
 [flavor_groups."better-ping-display"]
 name = "Пинг цифрами"
-description = "Точное значение пинга в списке игроков вместо палочек."
+description = "Better Ping Display. Точное значение пинга в списке игроков вместо палочек."
 side = "client"
 
 [[flavor_groups."better-ping-display".choices]]
@@ -73,7 +75,7 @@ name = "Отключить"
 
 [flavor_groups."create-better-fps"]
 name = "Оптимизация Create"
-description = "Ускоряет отрисовку механизмов Create. Полезно на больших фабриках."
+description = "Create Better FPS. Ускоряет отрисовку механизмов. Полезно на больших фабриках."
 side = "client"
 
 [[flavor_groups."create-better-fps".choices]]
@@ -86,7 +88,7 @@ name = "Отключить"
 
 [flavor_groups."cubes-without-borders"]
 name = "Бесшовные блоки"
-description = "Убирает швы между одинаковыми блоками."
+description = "Cubes Without Borders. Убирает швы между одинаковыми блоками."
 side = "client"
 
 [[flavor_groups."cubes-without-borders".choices]]
@@ -99,7 +101,7 @@ name = "Отключить"
 
 [flavor_groups."distant-horizons"]
 name = "Дальняя прорисовка"
-description = "Прорисовка ландшафта на 256+ чанков через упрощённые модели.\nСамая тяжёлая опция для видеокарты."
+description = "Distant Horizons. Ландшафт на 256+ чанков через упрощённые модели.\nСамая тяжёлая опция для видеокарты."
 side = "client"
 
 [[flavor_groups."distant-horizons".choices]]
@@ -112,7 +114,7 @@ name = "Отключить"
 
 [flavor_groups."enchantment-descriptions"]
 name = "Описания зачарований"
-description = "Показывает, что именно делает зачарование, прямо в подсказке."
+description = "Enchantment Descriptions. Показывает, что именно делает зачарование, прямо в подсказке."
 side = "client"
 
 [[flavor_groups."enchantment-descriptions".choices]]
@@ -125,7 +127,7 @@ name = "Отключить"
 
 [flavor_groups."entity-model-features"]
 name = "Модели мобов из ресурспаков"
-description = "Позволяет ресурспакам менять форму мобов, а не только текстуры."
+description = "[EMF] Entity Model Features. Позволяет ресурспакам менять форму мобов, а не только текстуры.\nТребует ETF — он включится сам, даже если отключён отдельно."
 side = "client"
 
 [[flavor_groups."entity-model-features".choices]]
@@ -138,7 +140,7 @@ name = "Отключить"
 
 [flavor_groups."entity-texture-features-fabric"]
 name = "Детальные текстуры мобов"
-description = "Случайные и эмиссивные текстуры существ из ресурспаков."
+description = "[ETF] Entity Texture Features. Случайные и эмиссивные текстуры существ из ресурспаков.\nОстанется установлен, если включён EMF."
 side = "client"
 
 [[flavor_groups."entity-texture-features-fabric".choices]]
@@ -151,7 +153,7 @@ name = "Отключить"
 
 [flavor_groups."entityculling"]
 name = "Отсечение невидимых мобов"
-description = "Не рисует существ за стенами. Заметно помогает на ферме мобов."
+description = "Entity Culling. Не рисует существ за стенами. Заметно помогает на ферме мобов."
 side = "client"
 
 [[flavor_groups."entityculling".choices]]
@@ -164,7 +166,7 @@ name = "Отключить"
 
 [flavor_groups."fancymenu"]
 name = "Оформленное меню"
-description = "Красивое главное меню вместо стандартного."
+description = "FancyMenu. Красивое главное меню вместо стандартного.\nВместе с ним ставятся библиотеки Konkrete и Melody."
 side = "client"
 
 [[flavor_groups."fancymenu".choices]]
@@ -177,7 +179,7 @@ name = "Отключить"
 
 [flavor_groups."irisshaders"]
 name = "Поддержка шейдеров"
-description = "Даёт возможность подключать шейдерпаки."
+description = "Iris Shaders. Даёт возможность подключать шейдерпаки."
 side = "client"
 
 [[flavor_groups."irisshaders".choices]]
@@ -190,7 +192,7 @@ name = "Отключить"
 
 [flavor_groups."jade-addons"]
 name = "Jade: данные модов"
-description = "Добавляет в подсказку Jade информацию из модов Create и других."
+description = "Jade Addons. Добавляет в подсказку Jade информацию из Create и других модов."
 side = "client"
 
 [[flavor_groups."jade-addons".choices]]
@@ -203,7 +205,7 @@ name = "Отключить"
 
 [flavor_groups."jade-sable-compat"]
 name = "Jade на летающих машинах"
-description = "Подсказки Jade работают на конструкциях Create Aeronautics."
+description = "Jade Sable Compat. Подсказки Jade работают на конструкциях Create Aeronautics."
 side = "client"
 
 [[flavor_groups."jade-sable-compat".choices]]
@@ -216,7 +218,7 @@ name = "Отключить"
 
 [flavor_groups."just-zoom"]
 name = "Зум"
-description = "Приближение по клавише, как в оптифайне."
+description = "Just Zoom. Приближение по клавише, как в оптифайне.\nВместе с ним ставится библиотека Konkrete."
 side = "client"
 
 [[flavor_groups."just-zoom".choices]]
@@ -229,7 +231,7 @@ name = "Отключить"
 
 [flavor_groups."legendary-tooltips"]
 name = "Красивые подсказки"
-description = "Рамки подсказок предметов в зависимости от редкости."
+description = "Legendary Tooltips. Рамки подсказок предметов в зависимости от редкости.\nВместе с ним ставятся библиотеки Iceberg и Prism."
 side = "client"
 
 [[flavor_groups."legendary-tooltips".choices]]
@@ -242,7 +244,7 @@ name = "Отключить"
 
 [flavor_groups."more-overlays-updated"]
 name = "Оверлеи"
-description = "Подсветка зон спавна мобов и чанков."
+description = "More Overlays Updated. Подсветка зон спавна мобов и границ чанков."
 side = "client"
 
 [[flavor_groups."more-overlays-updated".choices]]
@@ -255,7 +257,7 @@ name = "Отключить"
 
 [flavor_groups."mouse-tweaks"]
 name = "Удобная мышь"
-description = "Перетаскивание и раскладка предметов в инвентаре мышью."
+description = "Mouse Tweaks. Перетаскивание и раскладка предметов в инвентаре мышью."
 side = "client"
 
 [[flavor_groups."mouse-tweaks".choices]]
@@ -268,7 +270,7 @@ name = "Отключить"
 
 [flavor_groups."particle-rain"]
 name = "Погодные частицы"
-description = "Дождь и снег частицами вместо стандартных полос."
+description = "Particle Rain. Дождь и снег частицами вместо стандартных полос."
 side = "client"
 
 [[flavor_groups."particle-rain".choices]]
@@ -280,8 +282,8 @@ id = "particle-rain_off"
 name = "Отключить"
 
 [flavor_groups."sodium"]
-name = "Sodium: ускорение отрисовки"
-description = "Переписанный рендер, обычно даёт заметный прирост FPS.\nОстанется установлен, если включены Sodium Extra или SSRD."
+name = "Ускорение отрисовки"
+description = "Sodium. Переписанный рендер, обычно даёт заметный прирост FPS.\nОстанется установлен, если включены Sodium Extra или SSRD — они без него не работают."
 side = "client"
 
 [[flavor_groups."sodium".choices]]
@@ -293,8 +295,8 @@ id = "sodium_off"
 name = "Отключить"
 
 [flavor_groups."sodium-extra"]
-name = "Sodium: доп. настройки"
-description = "Расширенное меню настроек графики к Sodium."
+name = "Настройки графики"
+description = "Sodium Extra. Расширенное меню настроек к Sodium. Включает Sodium, даже если тот отключён."
 side = "client"
 
 [[flavor_groups."sodium-extra".choices]]
@@ -307,7 +309,7 @@ name = "Отключить"
 
 [flavor_groups."ssrd"]
 name = "Отдельная дальность для машин"
-description = "Своя дистанция прорисовки для конструкций Create Aeronautics."
+description = "Separate Sable Render Distance. Своя дистанция прорисовки для конструкций Create Aeronautics.\nВключает Sodium, даже если тот отключён."
 side = "client"
 
 [[flavor_groups."ssrd".choices]]
@@ -320,7 +322,7 @@ name = "Отключить"
 
 [flavor_groups."xaeros-minimap"]
 name = "Мини-карта Xaero"
-description = "Карта в углу экрана с отметками существ и игроков."
+description = "Xaero's Minimap. Карта в углу экрана с отметками существ и игроков."
 side = "client"
 
 [[flavor_groups."xaeros-minimap".choices]]
@@ -333,7 +335,7 @@ name = "Отключить"
 
 [flavor_groups."xaeros-world-map"]
 name = "Мировая карта Xaero"
-description = "Полноэкранная карта по клавише M, с путевыми точками."
+description = "Xaero's World Map. Полноэкранная карта по клавише M, с путевыми точками."
 side = "client"
 
 [[flavor_groups."xaeros-world-map".choices]]
