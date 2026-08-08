@@ -1,0 +1,13 @@
+name = "Sit and Lay"
+filename = "sitandlay-1.4.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/nvUQKhK3/versions/V9FvO8CK/sitandlay-1.4.jar"
+hash-format = "sha512"
+hash = "27eb48ffbabc0b0ba7b1bce4f77830537b67926987e2d7404e19db2f8055a4a0a4d521e066bbea5d7e0d29a0d223b83ff241ae2e50234e8818a65654c625cfec"
+
+[update]
+[update.modrinth]
+mod-id = "nvUQKhK3"
+version = "V9FvO8CK"
