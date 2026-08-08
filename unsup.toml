@@ -5,7 +5,7 @@
 
 [flavor_groups.graphics]
 name = "Графические моды"
-description = "Поддержка шейдеров, distant horizons (256+ чанков прорисовки), детальные текстуры мобов, волны и осадки.\nСамая заметная нагрузка на видеокарту."
+description = "Поддержка шейдеров, distant horizons (256+ чанков прорисовки), детальные текстуры мобов и осадки.\nСамая заметная нагрузка на видеокарту."
 side = "client"
 
 [[flavor_groups.graphics.choices]]
@@ -14,7 +14,7 @@ name = "Включить"
 
 [[flavor_groups.graphics.choices]]
 id = "graphics_off"
-name = "Отключить (8 модов)"
+name = "Отключить (7 модов)"
 
 [flavor_groups.sound]
 name = "Звуковое окружение"
@@ -96,8 +96,6 @@ flavors = ["graphics_on"]
 flavors = ["graphics_on"]
 [metafile.3dskinlayers]
 flavors = ["graphics_on"]
-[metafile.coastal-waves]
-flavors = ["graphics_on"]
 [metafile.particle-rain]
 flavors = ["graphics_on"]
 
@@ -148,3 +146,5 @@ flavors = ["menu_on"]
 flavors = ["menu_on"]
 
 # fusion-connected-textures не исключаем: его требует rechiseled (мод ядра)
+# coastal-waves не исключаем: мод регистрирует обязательный сетевой канал
+# waves:presence и должен стоять на обеих сторонах
