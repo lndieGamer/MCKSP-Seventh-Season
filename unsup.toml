@@ -462,3 +462,19 @@ name = "Отключить"
 
 [metafile."dynamiclights-reforged"]
 flavors = ["dynamiclights-reforged_on"]
+
+[flavor_groups."sodium-options-api"]
+name = "Sodium Options API (Зависимость)"
+description = "Зависимость для Sodium"
+side = "client"
+
+[[flavor_groups."sodium-options-api".choices]]
+id = "sodium-options-api_on"
+name = "Включить"
+
+[[flavor_groups."sodium-options-api".choices]]
+id = "sodium-options-api_off"
+name = "Отключить"
+
+[metafile."sodium-options-api"]
+flavors = ["sodium-options-api_on"]
