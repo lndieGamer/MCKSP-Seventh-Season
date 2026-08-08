@@ -1325,7 +1325,7 @@ metafile = true
 
 [[files]]
 file = "mods/coastal-waves.pw.toml"
-hash = "b81f6fa647629a4712f769c3c434e244622b8f1fa367e6a1b2a4b69b50adef05"
+hash = "c00b3260b13825a17143f09e90923a02e272415d6f1af33ee74a6d54bfc8506d"
 metafile = true
 
 [[files]]
