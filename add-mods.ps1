@@ -32,6 +32,47 @@ if (-not (Test-Path 'pack.toml')) {
     exit 1
 }
 
+# ---------- подтягиваем чужие правки ----------
+# Пак редактируют несколько человек. Если начать работу на устаревшей
+# копии, конфликт вылезет в index.toml — а там сотни записей, и разбирать
+# его руками очень неприятно. Поэтому синхронизируемся до всего остального.
+function Sync-Repo {
+    if (-not (Get-Command git -EA SilentlyContinue)) {
+        Say "git не найден в PATH — пропускаю синхронизацию." Yellow
+        return $true
+    }
+    if ((& git rev-parse --is-inside-work-tree 2>$null) -ne 'true') {
+        Say "Это не git-репозиторий — пропускаю синхронизацию." Yellow
+        return $true
+    }
+
+    Head "Синхронизация с GitHub"
+
+    $null = & git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>$null
+    if ($LASTEXITCODE -ne 0) {
+        Say "  у ветки нет upstream — тянуть неоткуда, пропускаю" Yellow
+        return $true
+    }
+
+    # --ff-only: если ветки разошлись, лучше честно упасть, чем создать
+    # merge-коммит поверх чужой работы
+    $out = & git pull --ff-only 2>&1
+    $out | ForEach-Object { Say "  $_" DarkGray }
+
+    if ($LASTEXITCODE -ne 0) {
+        Say ""
+        Say "  git pull не прошёл. Возможные причины:" Red
+        Say "    - ваши коммиты разошлись с удалёнными (нужен rebase или merge)" Yellow
+        Say "    - есть незакоммиченные правки, мешающие обновлению" Yellow
+        Say "    - нет доступа к сети или к репозиторию" Yellow
+        Say "  Разберитесь с этим и запустите скрипт заново." Yellow
+        return $false
+    }
+    return $true
+}
+
+if (-not (Sync-Repo)) { exit 1 }
+
 function Get-Metafiles {
     Get-ChildItem 'mods\*.pw.toml' -EA SilentlyContinue |
         ForEach-Object { $_.BaseName -replace '\.pw$', '' }

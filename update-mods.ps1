@@ -86,6 +86,8 @@ function Get-Snapshot {
             Name     = if ($t -match '(?m)^name\s*=\s*"(.*)"')     { $Matches[1] } else { $id }
             FileName = if ($t -match '(?m)^filename\s*=\s*"(.*)"') { $Matches[1] } else { '' }
             Side     = if ($t -match '(?m)^side\s*=\s*"(.*)"')     { $Matches[1] } else { 'both' }
+            Hash     = if ($t -match '(?m)^hash\s*=\s*"(.*)"')        { $Matches[1].ToLower() } else { '' }
+            HashFmt  = if ($t -match '(?m)^hash-format\s*=\s*"(.*)"') { $Matches[1] } else { '' }
             Pinned   = $t -match '(?m)^pin\s*=\s*true'
         }
     }
@@ -95,6 +97,98 @@ function Get-Snapshot {
 # из имени файла вытаскиваем что-то похожее на версию
 function Get-Ver($fileName) {
     if ($fileName -match '(\d+[\d.]*[\w.+-]*)\.jar$') { $Matches[1] } else { $fileName }
+}
+
+# ---------- проверка отставших зависимостей ----------
+# Опознаём моды на Modrinth по хешу jar (так же, как это делает add-mods).
+# Modrinth отдаёт для версии список зависимостей и дату публикации — этого
+# хватает, чтобы поймать случай, ради которого всё затевалось: аддон собран
+# под старую версию своей зависимости, а зависимость уехала вперёд.
+# Именно так сломался CarryOnAeroCompat, уронив сервер при клике по блоку.
+function Get-ModrinthVersions($snapshot) {
+    $UA   = @{ 'User-Agent' = 'mckspack-helper/1.0 (private modpack)' }
+    $res  = @{}
+    foreach ($algo in @('sha1', 'sha512')) {
+        $hashes = @($snapshot.Values |
+            Where-Object { $_.HashFmt -eq $algo -and $_.Hash } |
+            ForEach-Object { $_.Hash })
+        if ($hashes.Count -eq 0) { continue }
+        try {
+            $body = @{ hashes = $hashes; algorithm = $algo } | ConvertTo-Json -Compress
+            $r = Invoke-RestMethod -Method Post -Uri 'https://api.modrinth.com/v2/version_files' `
+                    -ContentType 'application/json' -Headers $UA `
+                    -Body ([Text.Encoding]::UTF8.GetBytes($body))
+            foreach ($pr in $r.PSObject.Properties) { $res[$pr.Name.ToLower()] = $pr.Value }
+        } catch {
+            Say "  запрос к Modrinth ($algo) не удался: $($_.Exception.Message)" Yellow
+        }
+    }
+    $res
+}
+
+function Warn-StaleDeps($snapshot, $changedIds) {
+    Head "Проверка зависимостей"
+
+    $vers = Get-ModrinthVersions $snapshot
+    if ($vers.Count -eq 0) {
+        Say "  не удалось опознать ни одного мода — проверка пропущена" Yellow
+        return
+    }
+
+    # project_id -> сведения о нашей версии мода
+    $byProject = @{}
+    $byId      = @{}
+    foreach ($m in $snapshot.Values) {
+        if (-not $m.Hash) { continue }
+        $v = $vers[$m.Hash]
+        if (-not $v) { continue }
+        $rec = [pscustomobject]@{
+            Id   = $m.Id
+            Name = $m.Name
+            Date = $v.date_published
+            Deps = $v.dependencies
+        }
+        $byProject[$v.project_id] = $rec
+        $byId[$m.Id] = $rec
+    }
+    Say "  опознано на Modrinth: $($byProject.Count) из $($snapshot.Count)" DarkGray
+
+    $risky = @()
+    $lag   = 0
+    foreach ($m in $byProject.Values) {
+        foreach ($d in $m.Deps) {
+            if ($d.dependency_type -ne 'required') { continue }
+            $dep = $byProject[$d.project_id]
+            if (-not $dep) { continue }
+            if ($dep.Date -le $m.Date) { continue }
+            $lag++
+            # опасно именно сейчас: зависимость обновилась в этом прогоне,
+            # а сам аддон остался прежним
+            if (($changedIds -contains $dep.Id) -and -not ($changedIds -contains $m.Id)) {
+                $risky += [pscustomobject]@{ Mod = $m.Name; Dep = $dep.Name }
+            }
+        }
+    }
+
+    if ($risky.Count -gt 0) {
+        Say ""
+        Say "  ВНИМАНИЕ: $($risky.Count) модов могли отстать от своих зависимостей" Red
+        foreach ($r in ($risky | Sort-Object Mod)) {
+            Say ("    {0}  ->  зависит от {1}, которая только что обновилась" -f (Plain $r.Mod), (Plain $r.Dep)) Yellow
+        }
+        Say ""
+        Say "  Это не гарантия поломки, но именно так ломаются миксины:" DarkGray
+        Say "  аддон ищет метод, которого в новой версии зависимости уже нет." DarkGray
+        Say "  Проверьте эти моды в игре перед тем, как пускать игроков." DarkGray
+    } else {
+        Say "  зависимостей, обновившихся впереди своих аддонов, нет" Green
+    }
+
+    if ($lag -gt $risky.Count) {
+        Say ""
+        Say "  Ещё $($lag - $risky.Count) модов старше своих зависимостей по дате," DarkGray
+        Say "  но обновились они не сейчас — обычно это безобидно (стабильные API)." DarkGray
+    }
 }
 
 # ---------- состояние git ----------
@@ -124,6 +218,29 @@ if ($dirty.Count -gt 0 -and -not $Force) {
 }
 if ($untracked.Count -gt 0) {
     Say "  неотслеживаемых файлов: $($untracked.Count) (откату не мешают)" DarkGray
+}
+
+# ---------- подтягиваем чужие правки ----------
+# Пак редактируют несколько человек. Обновляться на устаревшей копии нельзя:
+# конфликт вылезет в index.toml, где сотни записей.
+Head "Синхронизация с GitHub"
+# ветка без upstream — тянуть неоткуда, но и конфликтовать не с чем
+$null = & git rev-parse --abbrev-ref --symbolic-full-name '@{u}' 2>$null
+$hasUpstream = ($LASTEXITCODE -eq 0)
+
+if (-not $hasUpstream) {
+    Say "  у ветки нет upstream — тянуть неоткуда, пропускаю" Yellow
+} else {
+$pull = & git pull --ff-only 2>&1
+$pull | ForEach-Object { Say "  $_" DarkGray }
+if ($LASTEXITCODE -ne 0) {
+    Say ""
+    Say "  git pull не прошёл. Возможные причины:" Red
+    Say "    - ваши коммиты разошлись с удалёнными (нужен rebase или merge)" Yellow
+    Say "    - нет доступа к сети или к репозиторию" Yellow
+    Say "  Разберитесь с этим и запустите скрипт заново." Yellow
+    exit 1
+}
 }
 
 $before = Get-Snapshot
@@ -163,6 +280,7 @@ foreach ($id in $after.Keys) {
     if (-not $before.ContainsKey($id)) { continue }
     if ($before[$id].FileName -ne $after[$id].FileName) {
         $changed += [pscustomobject]@{
+            Id   = $id
             Name = $after[$id].Name
             Side = $after[$id].Side
             From = Get-Ver $before[$id].FileName
@@ -197,6 +315,8 @@ foreach ($c in ($changed | Sort-Object Name)) {
 }
 Say ""
 Say "  !! — мод есть и на сервере ($($srv.Count) шт.), только клиент: $($cli.Count)" DarkGray
+
+Warn-StaleDeps $after @($changed | ForEach-Object { $_.Id })
 
 # ---------- режим проверки ----------
 if ($CheckOnly) {
