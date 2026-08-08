@@ -1,150 +1,444 @@
-# unsup: группы вариантов сборки
-# Лежит рядом с pack.toml. packwiz его не трогает.
-# id выборов уникальны глобально: в _unsup-state.json они хранятся
-# плоским списком, без имени группы.
+# unsup: галочка на каждый клиентский мод.
+# Файл лежит рядом с pack.toml, packwiz его не трогает.
+# Генерируется и дополняется скриптом add-mods.ps1.
+#
+# Семантика флейворов у файла — ИЛИ: мод ставится, если совпал хотя бы
+# один из перечисленных. На этом держится привязка библиотек: они
+# перечисляют галочки всех своих потребителей.
 
-[flavor_groups.graphics]
-name = "Графические моды"
-description = "Поддержка шейдеров, distant horizons (256+ чанков прорисовки), детальные текстуры мобов и осадки.\nСамая заметная нагрузка на видеокарту."
+[flavor_groups."3dskinlayers"]
+name = "Объёмные слои скина"
+description = "Шляпа, куртка и прочие слои скина рисуются с толщиной, а не плоскими."
 side = "client"
 
-[[flavor_groups.graphics.choices]]
-id = "graphics_on"
+[[flavor_groups."3dskinlayers".choices]]
+id = "3dskinlayers_on"
 name = "Включить"
 
-[[flavor_groups.graphics.choices]]
-id = "graphics_off"
-name = "Отключить (7 модов)"
+[[flavor_groups."3dskinlayers".choices]]
+id = "3dskinlayers_off"
+name = "Отключить"
 
-[flavor_groups.sound]
+[flavor_groups."advancement-plaques"]
+name = "Таблички достижений"
+description = "Вместо стандартного тоста — крупная плашка с анимацией."
+side = "client"
+
+[[flavor_groups."advancement-plaques".choices]]
+id = "advancement-plaques_on"
+name = "Включить"
+
+[[flavor_groups."advancement-plaques".choices]]
+id = "advancement-plaques_off"
+name = "Отключить"
+
+[flavor_groups."ambientsounds"]
 name = "Звуковое окружение"
-description = "AmbientSounds — шумы леса, пещер, погоды. 85 МБ аудио в памяти."
+description = "Шумы леса, пещер и погоды. Держит в памяти около 85 МБ аудио."
 side = "client"
 
-[[flavor_groups.sound.choices]]
-id = "sound_on"
+[[flavor_groups."ambientsounds".choices]]
+id = "ambientsounds_on"
 name = "Включить"
 
-[[flavor_groups.sound.choices]]
-id = "sound_off"
-name = "Отключить (1 модов)"
+[[flavor_groups."ambientsounds".choices]]
+id = "ambientsounds_off"
+name = "Отключить"
 
-[flavor_groups.minimap]
-name = "Мини-карта Xaero"
-description = "Карта в углу экрана с отметками существ и игроков.\nФоновое кеширование чанков и запись на диск."
+[flavor_groups."better-advancements"]
+name = "Удобный экран достижений"
+description = "Перерисованное окно достижений с поиском и масштабированием."
 side = "client"
 
-[[flavor_groups.minimap.choices]]
-id = "minimap_on"
+[[flavor_groups."better-advancements".choices]]
+id = "better-advancements_on"
 name = "Включить"
 
-[[flavor_groups.minimap.choices]]
-id = "minimap_off"
-name = "Отключить (1 мод)"
+[[flavor_groups."better-advancements".choices]]
+id = "better-advancements_off"
+name = "Отключить"
 
-[flavor_groups.worldmap]
-name = "Мировая карта Xaero"
-description = "Полноэкранная карта по клавише M, с путевыми точками.\nНезависима от мини-карты."
+[flavor_groups."better-ping-display"]
+name = "Пинг цифрами"
+description = "Точное значение пинга в списке игроков вместо палочек."
 side = "client"
 
-[[flavor_groups.worldmap.choices]]
-id = "worldmap_on"
+[[flavor_groups."better-ping-display".choices]]
+id = "better-ping-display_on"
 name = "Включить"
 
-[[flavor_groups.worldmap.choices]]
-id = "worldmap_off"
-name = "Отключить (1 мод)"
+[[flavor_groups."better-ping-display".choices]]
+id = "better-ping-display_off"
+name = "Отключить"
 
-[flavor_groups.ui]
-name = "Удобства интерфейса"
-description = "Mouse Tweaks, подсказки к зачарованиям, зум, оверлеи, достижения, пинг.\nНа FPS почти не влияют, но заметно упрощают игру."
+[flavor_groups."create-better-fps"]
+name = "Оптимизация Create"
+description = "Ускоряет отрисовку механизмов Create. Полезно на больших фабриках."
 side = "client"
 
-[[flavor_groups.ui.choices]]
-id = "ui_on"
+[[flavor_groups."create-better-fps".choices]]
+id = "create-better-fps_on"
 name = "Включить"
 
-[[flavor_groups.ui.choices]]
-id = "ui_off"
-name = "Отключить (12 модов)"
+[[flavor_groups."create-better-fps".choices]]
+id = "create-better-fps_off"
+name = "Отключить"
 
-[flavor_groups.menu]
+[flavor_groups."cubes-without-borders"]
+name = "Бесшовные блоки"
+description = "Убирает швы между одинаковыми блоками."
+side = "client"
+
+[[flavor_groups."cubes-without-borders".choices]]
+id = "cubes-without-borders_on"
+name = "Включить"
+
+[[flavor_groups."cubes-without-borders".choices]]
+id = "cubes-without-borders_off"
+name = "Отключить"
+
+[flavor_groups."distant-horizons"]
+name = "Дальняя прорисовка"
+description = "Прорисовка ландшафта на 256+ чанков через упрощённые модели.\nСамая тяжёлая опция для видеокарты."
+side = "client"
+
+[[flavor_groups."distant-horizons".choices]]
+id = "distant-horizons_on"
+name = "Включить"
+
+[[flavor_groups."distant-horizons".choices]]
+id = "distant-horizons_off"
+name = "Отключить"
+
+[flavor_groups."enchantment-descriptions"]
+name = "Описания зачарований"
+description = "Показывает, что именно делает зачарование, прямо в подсказке."
+side = "client"
+
+[[flavor_groups."enchantment-descriptions".choices]]
+id = "enchantment-descriptions_on"
+name = "Включить"
+
+[[flavor_groups."enchantment-descriptions".choices]]
+id = "enchantment-descriptions_off"
+name = "Отключить"
+
+[flavor_groups."entity-model-features"]
+name = "Модели мобов из ресурспаков"
+description = "Позволяет ресурспакам менять форму мобов, а не только текстуры."
+side = "client"
+
+[[flavor_groups."entity-model-features".choices]]
+id = "entity-model-features_on"
+name = "Включить"
+
+[[flavor_groups."entity-model-features".choices]]
+id = "entity-model-features_off"
+name = "Отключить"
+
+[flavor_groups."entity-texture-features-fabric"]
+name = "Детальные текстуры мобов"
+description = "Случайные и эмиссивные текстуры существ из ресурспаков."
+side = "client"
+
+[[flavor_groups."entity-texture-features-fabric".choices]]
+id = "entity-texture-features-fabric_on"
+name = "Включить"
+
+[[flavor_groups."entity-texture-features-fabric".choices]]
+id = "entity-texture-features-fabric_off"
+name = "Отключить"
+
+[flavor_groups."entityculling"]
+name = "Отсечение невидимых мобов"
+description = "Не рисует существ за стенами. Заметно помогает на ферме мобов."
+side = "client"
+
+[[flavor_groups."entityculling".choices]]
+id = "entityculling_on"
+name = "Включить"
+
+[[flavor_groups."entityculling".choices]]
+id = "entityculling_off"
+name = "Отключить"
+
+[flavor_groups."fancymenu"]
 name = "Оформленное меню"
-description = "FancyMenu с фоном и музыкой. Работает только в главном меню, на игру не влияет."
+description = "Красивое главное меню вместо стандартного."
 side = "client"
 
-[[flavor_groups.menu.choices]]
-id = "menu_on"
+[[flavor_groups."fancymenu".choices]]
+id = "fancymenu_on"
 name = "Включить"
 
-[[flavor_groups.menu.choices]]
-id = "menu_off"
-name = "Отключить (3 модов)"
+[[flavor_groups."fancymenu".choices]]
+id = "fancymenu_off"
+name = "Отключить"
 
-# ---- принадлежность модов ----
+[flavor_groups."irisshaders"]
+name = "Поддержка шейдеров"
+description = "Даёт возможность подключать шейдерпаки."
+side = "client"
 
-# graphics — Тяжёлая графика
-[metafile.irisshaders]
-flavors = ["graphics_on"]
-[metafile.distant-horizons]
-flavors = ["graphics_on"]
-[metafile.ssrd]
-flavors = ["graphics_on"]
-[metafile.entity-texture-features-fabric]
-flavors = ["graphics_on"]
-[metafile.entity-model-features]
-flavors = ["graphics_on"]
-[metafile.3dskinlayers]
-flavors = ["graphics_on"]
-[metafile.particle-rain]
-flavors = ["graphics_on"]
+[[flavor_groups."irisshaders".choices]]
+id = "irisshaders_on"
+name = "Включить"
 
-# sound — Звуковое окружение
-[metafile.ambientsounds]
-flavors = ["sound_on"]
+[[flavor_groups."irisshaders".choices]]
+id = "irisshaders_off"
+name = "Отключить"
 
-# minimap — Мини-карта Xaero
-[metafile.xaeros-minimap]
-flavors = ["minimap_on"]
+[flavor_groups."jade-addons"]
+name = "Jade: данные модов"
+description = "Добавляет в подсказку Jade информацию из модов Create и других."
+side = "client"
 
-# worldmap — Мировая карта Xaero
-[metafile.xaeros-world-map]
-flavors = ["worldmap_on"]
+[[flavor_groups."jade-addons".choices]]
+id = "jade-addons_on"
+name = "Включить"
 
-# ui — Удобства интерфейса
-[metafile.mouse-tweaks]
-flavors = ["ui_on"]
-[metafile.enchantment-descriptions]
-flavors = ["ui_on"]
-[metafile.legendary-tooltips]
-flavors = ["ui_on"]
-[metafile.iceberg]
-flavors = ["ui_on"]
-[metafile.prism-lib]
-flavors = ["ui_on"]
-[metafile.just-zoom]
-flavors = ["ui_on"]
-[metafile.more-overlays-updated]
-flavors = ["ui_on"]
-[metafile.advancement-plaques]
-flavors = ["ui_on"]
-[metafile.better-advancements]
-flavors = ["ui_on"]
-[metafile.better-ping-display]
-flavors = ["ui_on"]
-[metafile.jade-addons]
-flavors = ["ui_on"]
-[metafile.cubes-without-borders]
-flavors = ["ui_on"]
+[[flavor_groups."jade-addons".choices]]
+id = "jade-addons_off"
+name = "Отключить"
 
-# menu — Оформленное меню
-[metafile.fancymenu]
-flavors = ["menu_on"]
-[metafile.melody]
-flavors = ["menu_on"]
-[metafile.konkrete]
-flavors = ["menu_on"]
+[flavor_groups."jade-sable-compat"]
+name = "Jade на летающих машинах"
+description = "Подсказки Jade работают на конструкциях Create Aeronautics."
+side = "client"
 
-# fusion-connected-textures не исключаем: его требует rechiseled (мод ядра)
-# coastal-waves не исключаем: мод регистрирует обязательный сетевой канал
-# waves:presence и должен стоять на обеих сторонах
+[[flavor_groups."jade-sable-compat".choices]]
+id = "jade-sable-compat_on"
+name = "Включить"
+
+[[flavor_groups."jade-sable-compat".choices]]
+id = "jade-sable-compat_off"
+name = "Отключить"
+
+[flavor_groups."just-zoom"]
+name = "Зум"
+description = "Приближение по клавише, как в оптифайне."
+side = "client"
+
+[[flavor_groups."just-zoom".choices]]
+id = "just-zoom_on"
+name = "Включить"
+
+[[flavor_groups."just-zoom".choices]]
+id = "just-zoom_off"
+name = "Отключить"
+
+[flavor_groups."legendary-tooltips"]
+name = "Красивые подсказки"
+description = "Рамки подсказок предметов в зависимости от редкости."
+side = "client"
+
+[[flavor_groups."legendary-tooltips".choices]]
+id = "legendary-tooltips_on"
+name = "Включить"
+
+[[flavor_groups."legendary-tooltips".choices]]
+id = "legendary-tooltips_off"
+name = "Отключить"
+
+[flavor_groups."more-overlays-updated"]
+name = "Оверлеи"
+description = "Подсветка зон спавна мобов и чанков."
+side = "client"
+
+[[flavor_groups."more-overlays-updated".choices]]
+id = "more-overlays-updated_on"
+name = "Включить"
+
+[[flavor_groups."more-overlays-updated".choices]]
+id = "more-overlays-updated_off"
+name = "Отключить"
+
+[flavor_groups."mouse-tweaks"]
+name = "Удобная мышь"
+description = "Перетаскивание и раскладка предметов в инвентаре мышью."
+side = "client"
+
+[[flavor_groups."mouse-tweaks".choices]]
+id = "mouse-tweaks_on"
+name = "Включить"
+
+[[flavor_groups."mouse-tweaks".choices]]
+id = "mouse-tweaks_off"
+name = "Отключить"
+
+[flavor_groups."particle-rain"]
+name = "Погодные частицы"
+description = "Дождь и снег частицами вместо стандартных полос."
+side = "client"
+
+[[flavor_groups."particle-rain".choices]]
+id = "particle-rain_on"
+name = "Включить"
+
+[[flavor_groups."particle-rain".choices]]
+id = "particle-rain_off"
+name = "Отключить"
+
+[flavor_groups."sodium"]
+name = "Sodium: ускорение отрисовки"
+description = "Переписанный рендер, обычно даёт заметный прирост FPS.\nОстанется установлен, если включены Sodium Extra или SSRD."
+side = "client"
+
+[[flavor_groups."sodium".choices]]
+id = "sodium_on"
+name = "Включить"
+
+[[flavor_groups."sodium".choices]]
+id = "sodium_off"
+name = "Отключить"
+
+[flavor_groups."sodium-extra"]
+name = "Sodium: доп. настройки"
+description = "Расширенное меню настроек графики к Sodium."
+side = "client"
+
+[[flavor_groups."sodium-extra".choices]]
+id = "sodium-extra_on"
+name = "Включить"
+
+[[flavor_groups."sodium-extra".choices]]
+id = "sodium-extra_off"
+name = "Отключить"
+
+[flavor_groups."ssrd"]
+name = "Отдельная дальность для машин"
+description = "Своя дистанция прорисовки для конструкций Create Aeronautics."
+side = "client"
+
+[[flavor_groups."ssrd".choices]]
+id = "ssrd_on"
+name = "Включить"
+
+[[flavor_groups."ssrd".choices]]
+id = "ssrd_off"
+name = "Отключить"
+
+[flavor_groups."xaeros-minimap"]
+name = "Мини-карта Xaero"
+description = "Карта в углу экрана с отметками существ и игроков."
+side = "client"
+
+[[flavor_groups."xaeros-minimap".choices]]
+id = "xaeros-minimap_on"
+name = "Включить"
+
+[[flavor_groups."xaeros-minimap".choices]]
+id = "xaeros-minimap_off"
+name = "Отключить"
+
+[flavor_groups."xaeros-world-map"]
+name = "Мировая карта Xaero"
+description = "Полноэкранная карта по клавише M, с путевыми точками."
+side = "client"
+
+[[flavor_groups."xaeros-world-map".choices]]
+id = "xaeros-world-map_on"
+name = "Включить"
+
+[[flavor_groups."xaeros-world-map".choices]]
+id = "xaeros-world-map_off"
+name = "Отключить"
+
+# ---- привязка модов к галочкам ----
+
+[metafile."3dskinlayers"]
+flavors = ["3dskinlayers_on"]
+
+[metafile."advancement-plaques"]
+flavors = ["advancement-plaques_on"]
+
+[metafile."ambientsounds"]
+flavors = ["ambientsounds_on"]
+
+[metafile."better-advancements"]
+flavors = ["better-advancements_on"]
+
+[metafile."better-ping-display"]
+flavors = ["better-ping-display_on"]
+
+[metafile."create-better-fps"]
+flavors = ["create-better-fps_on"]
+
+[metafile."cubes-without-borders"]
+flavors = ["cubes-without-borders_on"]
+
+[metafile."distant-horizons"]
+flavors = ["distant-horizons_on"]
+
+[metafile."enchantment-descriptions"]
+flavors = ["enchantment-descriptions_on"]
+
+[metafile."entity-model-features"]
+flavors = ["entity-model-features_on"]
+
+[metafile."entity-texture-features-fabric"]
+flavors = ["entity-texture-features-fabric_on", "entity-model-features_on"]
+
+[metafile."entityculling"]
+flavors = ["entityculling_on"]
+
+[metafile."fancymenu"]
+flavors = ["fancymenu_on"]
+
+[metafile."irisshaders"]
+flavors = ["irisshaders_on"]
+
+[metafile."jade-addons"]
+flavors = ["jade-addons_on"]
+
+[metafile."jade-sable-compat"]
+flavors = ["jade-sable-compat_on"]
+
+[metafile."just-zoom"]
+flavors = ["just-zoom_on"]
+
+[metafile."legendary-tooltips"]
+flavors = ["legendary-tooltips_on"]
+
+[metafile."more-overlays-updated"]
+flavors = ["more-overlays-updated_on"]
+
+[metafile."mouse-tweaks"]
+flavors = ["mouse-tweaks_on"]
+
+[metafile."particle-rain"]
+flavors = ["particle-rain_on"]
+
+[metafile."sodium"]
+flavors = ["sodium_on", "sodium-extra_on", "ssrd_on"]
+
+[metafile."sodium-extra"]
+flavors = ["sodium-extra_on"]
+
+[metafile."ssrd"]
+flavors = ["ssrd_on"]
+
+[metafile."xaeros-minimap"]
+flavors = ["xaeros-minimap_on"]
+
+[metafile."xaeros-world-map"]
+flavors = ["xaeros-world-map_on"]
+
+# ---- библиотеки: своей галочки нет, ставятся вместе с потребителями ----
+
+[metafile."iceberg"]
+flavors = ["advancement-plaques_on", "legendary-tooltips_on"]
+
+[metafile."konkrete"]
+flavors = ["fancymenu_on", "just-zoom_on"]
+
+[metafile."melody"]
+flavors = ["fancymenu_on"]
+
+[metafile."prism-lib"]
+flavors = ["legendary-tooltips_on"]
+
+# fusion-connected-textures не отключаем: его требует rechiseled,
+# а rechiseled стоит на обеих сторонах и всегда установлен
+# coastal-waves не отключаем: регистрирует обязательный сетевой канал
+# waves:presence, поэтому переведён в side = "both"

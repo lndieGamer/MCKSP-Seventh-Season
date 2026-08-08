@@ -161,7 +161,84 @@ if ($new.Count -gt 0) {
     Say "  и в unsup.toml, иначе они уедут на сервер и в облегчённую сборку." Yellow
 }
 
-# ---------- 5. версия пака ----------
+# ---------- 5. галочки в unsup ----------
+# Каждый клиентский мод — отдельная галочка в меню выбора. Новый мод без
+# привязки в unsup.toml ставится всем и всегда, поэтому спрашиваем про него
+# сразу, пока помним, зачем добавляли.
+function Update-Flavors($newIds) {
+    if (-not (Test-Path 'unsup.toml')) {
+        Say "  unsup.toml не найден рядом с pack.toml — пропускаю" Yellow
+        return
+    }
+
+    $toml = Get-Content 'unsup.toml' -Raw
+
+    # какие из новых модов клиентские и ещё не привязаны
+    $cand = @()
+    foreach ($id in $newIds) {
+        $f = "mods\$id.pw.toml"
+        if (-not (Test-Path $f)) { continue }
+        $t = Get-Content $f -Raw
+        $side = if ($t -match '(?m)^side\s*=\s*"(.*)"') { $Matches[1] } else { 'both' }
+        if ($side -ne 'client') { continue }
+        if ($toml -match [regex]::Escape("[metafile.`"$id`"]")) { continue }
+        if ($toml -match [regex]::Escape("[metafile.$id]"))     { continue }
+        $name = if ($t -match '(?m)^name\s*=\s*"(.*)"') { $Matches[1] } else { $id }
+        $cand += [pscustomobject]@{ Id = $id; Name = $name }
+    }
+
+    if ($cand.Count -eq 0) { return }
+
+    Head "Новые клиентские моды: $($cand.Count)"
+    Say "  Для каждого можно завести галочку в меню выбора сборки." DarkGray
+    Say "  Пустое название — мод будет ставиться всем и всегда." DarkGray
+
+    $add = ''
+    foreach ($c in $cand) {
+        Say ""
+        Say "  $($c.Name)  [$($c.Id)]" Cyan
+        $label = Read-Host "    Название галочки (Enter — без галочки)"
+        if (-not $label) { Say "    ставится всегда" DarkGray; continue }
+        $desc = Read-Host "    Короткое описание"
+
+        $label = $label -replace '"', "'"
+        $desc  = $desc  -replace '"', "'"
+
+        $add += @"
+
+[flavor_groups."$($c.Id)"]
+name = "$label"
+description = "$desc"
+side = "client"
+
+[[flavor_groups."$($c.Id)".choices]]
+id = "$($c.Id)_on"
+name = "Включить"
+
+[[flavor_groups."$($c.Id)".choices]]
+id = "$($c.Id)_off"
+name = "Отключить"
+
+[metafile."$($c.Id)"]
+flavors = ["$($c.Id)_on"]
+"@
+        Say "    галочка добавлена" Green
+    }
+
+    if (-not $add) { return }
+    if ($DryRun) { Say "`n  Сухой прогон — unsup.toml не тронут." Magenta; return }
+
+    Add-Content 'unsup.toml' $add
+    Say ""
+    Say "  unsup.toml дополнен." Green
+    Say "  Не забудьте добавить новые группы в setup-mckspack.iss," Yellow
+    Say "  иначе установщик про них не спросит и unsup переспросит сам" Yellow
+    Say "  при первом запуске игры." Yellow
+}
+
+if ($new.Count -gt 0) { Update-Flavors $new }
+
+# ---------- 6. версия пака ----------
 if ($Version) {
     Head "Версия пака -> $Version"
     foreach ($f in @('pack.toml', 'config\bcc-common.toml')) {
@@ -179,13 +256,13 @@ if ($Version) {
     }
 }
 
-# ---------- 6. индекс ----------
+# ---------- 7. индекс ----------
 if (-not $DryRun) {
     Head "Обновление индекса"
     & packwiz refresh
 }
 
-# ---------- 7. git ----------
+# ---------- 8. git ----------
 Head "Git"
 if ($DryRun) {
     & git status --short
