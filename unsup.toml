@@ -31,7 +31,7 @@ name = "Отключить (1 модов)"
 
 [flavor_groups.minimap]
 name = "Мини-карта Xaero"
-description = "Карта в углу экрана."
+description = "Карта в углу экрана с отметками существ и игроков.\nФоновое кеширование чанков и запись на диск."
 side = "client"
 
 [[flavor_groups.minimap.choices]]
@@ -40,23 +40,20 @@ name = "Включить"
 
 [[flavor_groups.minimap.choices]]
 id = "minimap_off"
-name = "Отключить"
+name = "Отключить (1 мод)"
 
-[metafile.xaeros-minimap]
-flavors = ["minimap_on"]
-
-[flavor_groups.maps]
-name = "Карты Xaero"
-description = "Мировая карта. Фоновое кеширование чанков и запись на диск."
+[flavor_groups.worldmap]
+name = "Мировая карта Xaero"
+description = "Полноэкранная карта по клавише M, с путевыми точками.\nНезависима от мини-карты."
 side = "client"
 
-[[flavor_groups.maps.choices]]
-id = "maps_on"
+[[flavor_groups.worldmap.choices]]
+id = "worldmap_on"
 name = "Включить"
 
-[[flavor_groups.maps.choices]]
-id = "maps_off"
-name = "Отключить"
+[[flavor_groups.worldmap.choices]]
+id = "worldmap_off"
+name = "Отключить (1 мод)"
 
 [flavor_groups.ui]
 name = "Удобства интерфейса"
@@ -108,11 +105,13 @@ flavors = ["graphics_on"]
 [metafile.ambientsounds]
 flavors = ["sound_on"]
 
-# maps — Карты Xaero
+# minimap — Мини-карта Xaero
 [metafile.xaeros-minimap]
-flavors = ["maps_on"]
+flavors = ["minimap_on"]
+
+# worldmap — Мировая карта Xaero
 [metafile.xaeros-world-map]
-flavors = ["maps_on"]
+flavors = ["worldmap_on"]
 
 # ui — Удобства интерфейса
 [metafile.mouse-tweaks]
@@ -147,3 +146,5 @@ flavors = ["menu_on"]
 flavors = ["menu_on"]
 [metafile.konkrete]
 flavors = ["menu_on"]
+
+# fusion-connected-textures не исключаем: его требует rechiseled (мод ядра)
