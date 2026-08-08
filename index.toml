@@ -1879,8 +1879,8 @@ hash = "6b3c65eef473d729266b7467ad8354afb40cdd03889205e35467cf323080fe77"
 metafile = true
 
 [[files]]
-file = "mods/sit.pw.toml"
-hash = "bea5c334329167c70e633a3dad78b368bca304f1da00adea9d2ceea765945992"
+file = "mods/sit-and-lay.pw.toml"
+hash = "a4ab59df8eeabe4f28bdf6a0bc57613e853e56df14e3850911391e8036487797"
 metafile = true
 
 [[files]]
