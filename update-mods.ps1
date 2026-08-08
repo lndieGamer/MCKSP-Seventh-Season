@@ -26,6 +26,13 @@ $ErrorActionPreference = 'Stop'
 function Say($t, $c = 'Gray') { Write-Host $t -ForegroundColor $c }
 function Head($t) { Write-Host ""; Write-Host "== $t" -ForegroundColor Cyan }
 
+# У части модов в name есть эмодзи (например "Jade 🔍"). Это суррогатная
+# пара: консоль её не рисует, а Length считает за два символа и ломает
+# выравнивание колонок. Для вывода чистим, в коммит идёт исходное имя.
+function Plain($t) {
+    ($t -replace '[\uD800-\uDFFF]', '').Trim()
+}
+
 # ---------- где лежит пак ----------
 # Скрипт может лежать где угодно: ищем pack.toml рядом с ним, затем вверх
 # по родительским папкам, затем от текущего каталога.
@@ -181,9 +188,9 @@ $srv = @($changed | Where-Object { $_.Side -ne 'client' })
 $cli = @($changed | Where-Object { $_.Side -eq 'client' })
 
 Head "Обновлено модов: $($changed.Count)"
-$w = ($changed | ForEach-Object { $_.Name.Length } | Measure-Object -Maximum).Maximum
+$w = ($changed | ForEach-Object { (Plain $_.Name).Length } | Measure-Object -Maximum).Maximum
 foreach ($c in ($changed | Sort-Object Name)) {
-    $pad  = $c.Name.PadRight($w)
+    $pad  = (Plain $c.Name).PadRight($w)
     $mark = if ($c.Side -eq 'client') { '  ' } else { '!!' }
     $col  = if ($c.Side -eq 'client') { 'Gray' } else { 'Yellow' }
     Say ("  {0} {1}  {2} -> {3}" -f $mark, $pad, $c.From, $c.To) $col
@@ -221,7 +228,7 @@ $lines = @(
     "# Сгенерировано update-mods.ps1, всего: $($srvFiles.Count)",
     ""
 ) + ($srvFiles | Sort-Object)
-[IO.File]::WriteAllLines((Join-Path $PackDir $listName), $lines, (New-Object Text.UTF8Encoding $false))
+[IO.File]::WriteAllLines((Join-Path $root $listName), $lines, (New-Object Text.UTF8Encoding $false))
 
 # ---------- индекс ----------
 Head "Обновление индекса"

@@ -22,4 +22,4 @@ mods/*.jar
 # бутстрап и сборка установщика
 packwiz-installer-bootstrap.jar
 installer/**
-build/**
+build/**server-mods-expected.txt
