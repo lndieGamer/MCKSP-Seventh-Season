@@ -1984,7 +1984,7 @@ hash = "c1e0c805d5ccd49535a6820aa8a2461a516437f90312fcadd393f928e3ce7bf2"
 metafile = true
 
 [[files]]
-file = "mods/voxy-0-2-15-neoforge-1-21-1-jar.pw.toml"
+file = "mods/voxy.pw.toml"
 hash = "491810a3691e8c07cc2c91c412280f8c48f684d3fa2a212d995b002eade0e9e8"
 metafile = true
 
