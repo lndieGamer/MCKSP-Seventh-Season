@@ -36,6 +36,24 @@ try {
 # Get-Content в PowerShell 5.1 читает файл без BOM в системной ANSI-кодировке.
 # UTF-8 при этом превращается в мусор, и если такой текст записать обратно —
 # получится двойная перекодировка (Ã¢â‚¬ вместо кириллицы). Читаем явно.
+# Нативные программы пишут в stderr и при успехе: git — строки вида
+# "From https://...", packwiz — прогресс. При $ErrorActionPreference = 'Stop'
+# конструкция 2>&1 превращает такую строку в терминирующую ошибку
+# NativeCommandError и роняет скрипт на ровном месте. Поэтому на время вызова
+# снимаем Stop и приводим вывод к обычным строкам.
+function Run-Native {
+    param(
+        [Parameter(Mandatory)][string]$Exe,
+        [Parameter(ValueFromRemainingArguments)][string[]]$Arguments
+    )
+    $prev = $ErrorActionPreference
+    $ErrorActionPreference = 'Continue'
+    try {
+        $out = & $Exe @Arguments 2>&1 | ForEach-Object { [string]$_ }
+    } finally { $ErrorActionPreference = $prev }
+    ,@($out)
+}
+
 function Read-Utf8($path) {
     [IO.File]::ReadAllText((Resolve-Path $path).Path,
         (New-Object Text.UTF8Encoding $false))
@@ -255,7 +273,7 @@ $hasUpstream = ($LASTEXITCODE -eq 0)
 if (-not $hasUpstream) {
     Say "  у ветки нет upstream — тянуть неоткуда, пропускаю" Yellow
 } else {
-$pull = & git pull --ff-only 2>&1
+$pull = Run-Native git pull --ff-only
 $pull | ForEach-Object { Say "  $_" DarkGray }
 if ($LASTEXITCODE -ne 0) {
     Say ""
@@ -279,12 +297,12 @@ if ($pinned.Count -gt 0) {
 # ---------- обновление ----------
 Head $(if ($Mod) { "packwiz update $Mod" } else { "packwiz update --all" })
 
-$out = if ($Mod) {
-    & packwiz update $Mod -y 2>&1 | Tee-Object -Variable captured
+$captured = if ($Mod) {
+    Run-Native packwiz update $Mod -y
 } else {
-    & packwiz update --all -y 2>&1 | Tee-Object -Variable captured
+    Run-Native packwiz update --all -y
 }
-$out | ForEach-Object { Say "  $_" DarkGray }
+$captured | ForEach-Object { Say "  $_" DarkGray }
 
 if ($LASTEXITCODE -ne 0) {
     Say "`npackwiz завершился с ошибкой." Red
