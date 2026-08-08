@@ -1884,11 +1884,6 @@ hash = "a4ab59df8eeabe4f28bdf6a0bc57613e853e56df14e3850911391e8036487797"
 metafile = true
 
 [[files]]
-file = "mods/sit.pw.toml"
-hash = "bea5c334329167c70e633a3dad78b368bca304f1da00adea9d2ceea765945992"
-metafile = true
-
-[[files]]
 file = "mods/skinrestorer.pw.toml"
 hash = "4d09486515db5baeaf01c0d6e6a3fefb64a947d42c66b6d5a68f7242cc1a88fc"
 metafile = true
