@@ -1264,11 +1264,6 @@ hash = "838dbcb90c93bab58691e82c95045bd97c3e096e3a2680a00cf063e56ce35ce3"
 metafile = true
 
 [[files]]
-file = "mods/carryon-aeronautics-compat.pw.toml"
-hash = "5dd4552f1e29c6db54ea43a7c56e298de7f8e467bd5a61a211f9c3362b5528b2"
-metafile = true
-
-[[files]]
 file = "mods/cbc-enchanced-shells-create-big-cannons.pw.toml"
 hash = "89ce9993242eb071f055d3543f5362a7cce8a20167800087456cc8f01e5e8ec8"
 metafile = true
