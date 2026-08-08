@@ -29,9 +29,25 @@ name = "Включить"
 id = "sound_off"
 name = "Отключить (1 модов)"
 
+[flavor_groups.minimap]
+name = "Мини-карта Xaero"
+description = "Карта в углу экрана."
+side = "client"
+
+[[flavor_groups.minimap.choices]]
+id = "minimap_on"
+name = "Включить"
+
+[[flavor_groups.minimap.choices]]
+id = "minimap_off"
+name = "Отключить"
+
+[metafile.xaeros-minimap]
+flavors = ["minimap_on"]
+
 [flavor_groups.maps]
 name = "Карты Xaero"
-description = "Миникарта и мировая карта. Фоновое кеширование чанков и запись на диск."
+description = "Мировая карта. Фоновое кеширование чанков и запись на диск."
 side = "client"
 
 [[flavor_groups.maps.choices]]
@@ -40,7 +56,7 @@ name = "Включить"
 
 [[flavor_groups.maps.choices]]
 id = "maps_off"
-name = "Отключить (2 модов)"
+name = "Отключить"
 
 [flavor_groups.ui]
 name = "Удобства интерфейса"
