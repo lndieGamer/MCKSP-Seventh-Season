@@ -1,3 +1,0 @@
-#Enable or disable logging to the console.
-#If enabled may cause some additional lag
-enableLogging = false
