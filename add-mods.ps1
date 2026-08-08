@@ -169,12 +169,32 @@ if ($left.Count -gt 0) {
         foreach ($p in $projects) { $slug[$p.id] = $p.slug }
 
         foreach ($h in $hits.Keys) {
-            $s   = $slug[$hits[$h].project_id]
-            $jar = $byHash[$h]
-            Say "  $($jar.Name)  ->  $s"
-            if (-not $DryRun) {
-                & packwiz modrinth add $s
-                if ($LASTEXITCODE -eq 0) { Remove-Item $jar.FullName -Force }
+            $v    = $hits[$h]
+            $s    = $slug[$v.project_id]
+            $jar  = $byHash[$h]
+            $ldrs = @($v.loaders) -join ', '
+            Say "  $($jar.Name)  ->  $s  [$ldrs]"
+            if ($DryRun) { continue }
+
+            # Ставим по version-id, а не по slug. Так в пак попадает ровно тот
+            # файл, который лежит в mods, и — главное — packwiz не отсеивает
+            # его по загрузчику: installVersionById обходит проверку
+            # совместимости. Для Fabric-модов под Sinytra Connector (Axiom,
+            # voxy) это единственный способ добавить их в NeoForge-пак.
+            $r = Run-Native packwiz modrinth add --version-id $v.id
+            $r | ForEach-Object { Say "    $_" DarkGray }
+
+            if ($LASTEXITCODE -ne 0) {
+                Say "    по version-id не вышло, пробую по названию" Yellow
+                $r = Run-Native packwiz modrinth add $s
+                $r | ForEach-Object { Say "    $_" DarkGray }
+            }
+
+            if ($LASTEXITCODE -eq 0) {
+                Remove-Item $jar.FullName -Force
+                if ($ldrs -and $ldrs -notmatch 'neoforge|forge') {
+                    Say "    ВНИМАНИЕ: мод собран под $ldrs — нужен Sinytra Connector" Yellow
+                }
             }
         }
     }
@@ -186,7 +206,14 @@ if ($stuck.Count -gt 0) {
     Head "Не опознано ($($stuck.Count)) — нужен метафайл вручную"
     $stuck | ForEach-Object { Say "  $($_.Name)" Yellow }
     Say ""
-    Say "  Залейте их в GitHub Releases и добавьте так:" DarkGray
+    Say "  Если мод есть на Modrinth, но packwiz его не берёт — скорее" DarkGray
+    Say "  всего не совпал загрузчик. Добавьте по идентификатору версии," DarkGray
+    Say "  он обходит проверку совместимости:" DarkGray
+    Say "    packwiz modrinth add --version-id <id>" DarkGray
+    Say "  Идентификатор виден в адресе страницы версии на Modrinth." DarkGray
+    Say "" DarkGray
+    Say "  Если мода нет ни на Modrinth, ни на CurseForge — залейте jar" DarkGray
+    Say "  в GitHub Releases и добавьте по прямой ссылке:" DarkGray
     Say "    packwiz url add <имя> <прямая-ссылка-на-jar>" DarkGray
 }
 
