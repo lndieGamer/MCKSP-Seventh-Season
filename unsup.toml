@@ -446,3 +446,19 @@ flavors = ["legendary-tooltips_on"]
 # а rechiseled стоит на обеих сторонах и всегда установлен
 # coastal-waves не отключаем: регистрирует обязательный сетевой канал
 # waves:presence, поэтому переведён в side = "both"
+
+[flavor_groups."voxy"]
+name = "voxy"
+description = "????????? ??????????"
+side = "client"
+
+[[flavor_groups."voxy".choices]]
+id = "voxy_on"
+name = "????????"
+
+[[flavor_groups."voxy".choices]]
+id = "voxy_off"
+name = "?????????"
+
+[metafile."voxy"]
+flavors = ["voxy_on"]
