@@ -31,6 +31,14 @@ try {
 # Add-Content в Windows PowerShell 5.1 пишет в системной ANSI-кодировке, а не
 # в UTF-8: если она не кириллическая, весь текст превращается в «?». Именно
 # так испортились названия галочек. Пишем байты сами.
+# Get-Content в PowerShell 5.1 читает файл без BOM в системной ANSI-кодировке.
+# UTF-8 при этом превращается в мусор, и если такой текст записать обратно —
+# получится двойная перекодировка (Ã¢â‚¬ вместо кириллицы). Читаем явно.
+function Read-Utf8($path) {
+    [IO.File]::ReadAllText((Resolve-Path $path).Path,
+        (New-Object Text.UTF8Encoding $false))
+}
+
 function Append-Utf8($path, $text) {
     if (-not (Test-Path $path)) { New-Item $path -ItemType File -Force | Out-Null }
     [IO.File]::AppendAllText(
@@ -187,14 +195,14 @@ function Update-Flavors($newIds) {
         return
     }
 
-    $toml = Get-Content 'unsup.toml' -Raw
+    $toml = Read-Utf8 'unsup.toml'
 
     # какие из новых модов клиентские и ещё не привязаны
     $cand = @()
     foreach ($id in $newIds) {
         $f = "mods\$id.pw.toml"
         if (-not (Test-Path $f)) { continue }
-        $t = Get-Content $f -Raw
+        $t = Read-Utf8 $f
         $side = if ($t -match '(?m)^side\s*=\s*"(.*)"') { $Matches[1] } else { 'both' }
         if ($side -ne 'client') { continue }
         if ($toml -match [regex]::Escape("[metafile.`"$id`"]")) { continue }
@@ -259,7 +267,7 @@ if ($Version) {
     Head "Версия пака -> $Version"
     foreach ($f in @('pack.toml', 'config\bcc-common.toml')) {
         if (-not (Test-Path $f)) { Say "  $f не найден, пропускаю" Yellow; continue }
-        $t = Get-Content $f -Raw
+        $t = Read-Utf8 $f
         if ($f -like '*pack.toml') {
             $t = $t -replace '(?m)^version\s*=\s*".*"', "version = `"$Version`""
         } else {

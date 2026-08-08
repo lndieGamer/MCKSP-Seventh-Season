@@ -33,6 +33,14 @@ try {
 # Add-Content в Windows PowerShell 5.1 пишет в системной ANSI-кодировке, а не
 # в UTF-8: если она не кириллическая, весь текст превращается в «?». Именно
 # так испортились названия галочек. Пишем байты сами.
+# Get-Content в PowerShell 5.1 читает файл без BOM в системной ANSI-кодировке.
+# UTF-8 при этом превращается в мусор, и если такой текст записать обратно —
+# получится двойная перекодировка (Ã¢â‚¬ вместо кириллицы). Читаем явно.
+function Read-Utf8($path) {
+    [IO.File]::ReadAllText((Resolve-Path $path).Path,
+        (New-Object Text.UTF8Encoding $false))
+}
+
 function Append-Utf8($path, $text) {
     if (-not (Test-Path $path)) { New-Item $path -ItemType File -Force | Out-Null }
     [IO.File]::AppendAllText(
@@ -95,7 +103,7 @@ foreach ($exe in @('packwiz', 'git')) {
 function Get-Snapshot {
     $r = @{}
     foreach ($f in Get-ChildItem -Recurse -Filter '*.pw.toml' -EA SilentlyContinue) {
-        $t = Get-Content $f.FullName -Raw
+        $t = Read-Utf8 $f.FullName
         $id = $f.BaseName -replace '\.pw$', ''
         $r[$id] = [pscustomobject]@{
             Id       = $id
@@ -352,7 +360,7 @@ if ($CheckOnly) {
 # Кладём рядом с паком, но прячем от packwiz: иначе файл уедет игрокам.
 $ignore = '.packwizignore'
 $listName = 'server-mods-expected.txt'
-$ign = if (Test-Path $ignore) { Get-Content $ignore } else { @() }
+$ign = if (Test-Path $ignore) { (Read-Utf8 $ignore) -split "`r?`n" } else { @() }
 if ($ign -notcontains $listName) {
     # имя файла тут чисто ASCII, но пусть везде будет один способ записи
     Append-Utf8 $ignore "$listName`n"

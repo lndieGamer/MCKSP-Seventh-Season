@@ -36,6 +36,14 @@ try {
 # Add-Content в Windows PowerShell 5.1 пишет в системной ANSI-кодировке, а не
 # в UTF-8: если она не кириллическая, весь текст превращается в «?». Именно
 # так испортились названия галочек. Пишем байты сами.
+# Get-Content в PowerShell 5.1 читает файл без BOM в системной ANSI-кодировке.
+# UTF-8 при этом превращается в мусор, и если такой текст записать обратно —
+# получится двойная перекодировка (Ã¢â‚¬ вместо кириллицы). Читаем явно.
+function Read-Utf8($path) {
+    [IO.File]::ReadAllText((Resolve-Path $path).Path,
+        (New-Object Text.UTF8Encoding $false))
+}
+
 function Append-Utf8($path, $text) {
     if (-not (Test-Path $path)) { New-Item $path -ItemType File -Force | Out-Null }
     [IO.File]::AppendAllText(
@@ -76,13 +84,13 @@ Set-Location $root
 if (-not (Test-Path 'unsup.toml')) {
     Say "unsup.toml не найден рядом с pack.toml." Red; exit 1
 }
-$toml = Get-Content 'unsup.toml' -Raw
+$toml = Read-Utf8 'unsup.toml'
 
 # ---------- метафайлы ----------
 function Read-Mods {
     $r = @()
     foreach ($f in Get-ChildItem 'mods\*.pw.toml' -EA SilentlyContinue) {
-        $t = Get-Content $f.FullName -Raw
+        $t = Read-Utf8 $f.FullName
         $r += [pscustomobject]@{
             Id   = $f.BaseName -replace '\.pw$', ''
             Name = if ($t -match '(?m)^name\s*=\s*"(.*)"')        { $Matches[1] } else { $f.BaseName }
@@ -140,15 +148,14 @@ function Is-Bound($id) {
 $mods    = Read-Mods
 $unbound = @($mods | Where-Object { $_.Side -eq 'client' -and -not (Is-Bound $_.Id) } | Sort-Object Id)
 
-if ($unbound.Count -eq 0) {
-    Say "Все клиентские моды уже привязаны к галочкам." Green
-    exit 0
-}
-
 if ($List) {
-    Head "Клиентские моды без галочки: $($unbound.Count)"
-    Say "  Такие ставятся всем и всегда." DarkGray
-    $unbound | ForEach-Object { Say ("  {0,-34} {1}" -f $_.Id, (Plain $_.Name)) }
+    if ($unbound.Count -eq 0) {
+        Say "Все клиентские моды уже привязаны к галочкам." Green
+    } else {
+        Head "Клиентские моды без галочки: $($unbound.Count)"
+        Say "  Такие ставятся всем и всегда." DarkGray
+        $unbound | ForEach-Object { Say ("  {0,-34} {1}" -f $_.Id, (Plain $_.Name)) }
+    }
     exit 0
 }
 
@@ -182,7 +189,7 @@ function Pick-Group($groups, $title) {
 }
 
 function Do-Rename {
-    $blocks = Split-Toml (Get-Content 'unsup.toml' -Raw)
+    $blocks = Split-Toml (Read-Utf8 'unsup.toml')
     $groups = @(Get-Groups $blocks)
     if ($groups.Count -eq 0) { Say "В unsup.toml нет галочек." Yellow; return }
     $g = Pick-Group $groups "Какую галочку правим"
@@ -214,7 +221,7 @@ function Do-Rename {
 }
 
 function Do-Rebind {
-    $blocks = Split-Toml (Get-Content 'unsup.toml' -Raw)
+    $blocks = Split-Toml (Read-Utf8 'unsup.toml')
     $binds = @()
     foreach ($b in $blocks) {
         if ($b.Header -and $b.Header -match '^metafile\.(.+)$') {
@@ -262,7 +269,7 @@ function Do-Rebind {
 }
 
 function Do-Remove {
-    $blocks = Split-Toml (Get-Content 'unsup.toml' -Raw)
+    $blocks = Split-Toml (Read-Utf8 'unsup.toml')
     $groups = @(Get-Groups $blocks)
     if ($groups.Count -eq 0) { Say "В unsup.toml нет галочек." Yellow; return }
     $g = Pick-Group $groups "Какую галочку удаляем"
@@ -323,7 +330,14 @@ if ($Edit -or (-not $Query -and -not $List)) {
     }
 }
 
-# ---------- выбираем мод ----------
+# ---------- выбираем мод (ветка добавления) ----------
+if ($unbound.Count -eq 0) {
+    Say ""
+    Say "Все клиентские моды уже привязаны к галочкам — добавлять нечего." Green
+    Say "Для правки существующих запустите с -Edit." DarkGray
+    exit 0
+}
+
 if ($Query) {
     $hits = @($unbound | Where-Object { $_.Id -like "*$Query*" -or $_.Name -like "*$Query*" })
     if ($hits.Count -eq 0) {

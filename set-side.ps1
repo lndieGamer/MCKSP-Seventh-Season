@@ -37,6 +37,14 @@ try {
 # Add-Content в Windows PowerShell 5.1 пишет в системной ANSI-кодировке, а не
 # в UTF-8: если она не кириллическая, весь текст превращается в «?». Именно
 # так испортились названия галочек. Пишем байты сами.
+# Get-Content в PowerShell 5.1 читает файл без BOM в системной ANSI-кодировке.
+# UTF-8 при этом превращается в мусор, и если такой текст записать обратно —
+# получится двойная перекодировка (Ã¢â‚¬ вместо кириллицы). Читаем явно.
+function Read-Utf8($path) {
+    [IO.File]::ReadAllText((Resolve-Path $path).Path,
+        (New-Object Text.UTF8Encoding $false))
+}
+
 function Append-Utf8($path, $text) {
     if (-not (Test-Path $path)) { New-Item $path -ItemType File -Force | Out-Null }
     [IO.File]::AppendAllText(
@@ -78,7 +86,7 @@ Set-Location $root
 function Read-Mods {
     $r = @()
     foreach ($f in Get-ChildItem 'mods\*.pw.toml' -EA SilentlyContinue) {
-        $t = Get-Content $f.FullName -Raw
+        $t = Read-Utf8 $f.FullName
         $r += [pscustomobject]@{
             Id   = $f.BaseName -replace '\.pw$', ''
             Path = $f.FullName
@@ -205,7 +213,7 @@ if ($To -eq $mod.Side) {
 
     $bound = $false
     if (Test-Path 'unsup.toml') {
-        $tmpToml = Get-Content 'unsup.toml' -Raw
+        $tmpToml = Read-Utf8 'unsup.toml'
         $bound = ($tmpToml -match [regex]::Escape("[metafile.`"$($mod.Id)`"]")) -or
                  ($tmpToml -match [regex]::Escape("[metafile.$($mod.Id)]"))
     }
@@ -273,7 +281,7 @@ if ($To -eq 'client' -and $mrVersion) {
 # ---------- пишем side ----------
 Head "Смена стороны: $($mod.Side) -> $To"
 
-$t = Get-Content $mod.Path -Raw
+$t = Read-Utf8 $mod.Path
 if ($t -match '(?m)^side\s*=\s*".+?"') {
     $t = [regex]::Replace($t, '(?m)^side\s*=\s*".+?"', "side = `"$To`"", 1)
 } else {
@@ -290,7 +298,7 @@ if ($DryRun) {
 
 # ---------- галочка в unsup.toml ----------
 if (Test-Path 'unsup.toml') {
-    $toml = Get-Content 'unsup.toml' -Raw
+    $toml = Read-Utf8 'unsup.toml'
     $hasGroup = $toml -match [regex]::Escape("[flavor_groups.`"$($mod.Id)`"]")
     $hasBind  = $toml -match [regex]::Escape("[metafile.`"$($mod.Id)`"]")
 
