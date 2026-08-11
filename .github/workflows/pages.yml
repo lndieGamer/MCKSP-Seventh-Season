@@ -45,15 +45,17 @@ jobs:
           else
             echo "index.toml уже актуален"
           fi
-
-      - name: Assemble site
+          
+        - name: Assemble site
         run: |
           mkdir -p _site
           cp pack.toml index.toml _site/
-          cp -r mods config _site/
-          if [ -f options.txt ];  then cp options.txt  _site/; fi
-          if [ -f servers.dat ];  then cp servers.dat  _site/; fi
-          if [ -f unsup.toml ];   then cp unsup.toml   _site/; fi
+          cp -r mods _site/
+          for d in config resourcepacks shaderpacks kubejs; do
+            if [ -d "$d" ]; then cp -r "$d" _site/; fi
+          done
+          if [ -f options.txt ]; then cp options.txt _site/; fi
+          if [ -f servers.dat ]; then cp servers.dat _site/; fi
           echo "--- что уедет на Pages:"
           du -sh _site
           find _site -maxdepth 1
