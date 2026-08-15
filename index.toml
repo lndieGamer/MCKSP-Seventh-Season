@@ -11,6 +11,11 @@ hash = "7329db8d8b0fe08ac02a3b2ad816fa9f2081c5b2067f449c36c01b84ded7bf13"
 metafile = true
 
 [[files]]
+file = "mods/aeronautics-hot-air-fix.pw.toml"
+hash = "a5a6d4da3d6bd35708795ec761a4400f5792fea1e3b644035ebeb98926ef14b6"
+metafile = true
+
+[[files]]
 file = "mods/alexs-caves-unofficial-port.pw.toml"
 hash = "dad63ca9ff3eb3a5cbabaa66142caecc7e4acfafab504fcc1009aeae1de0c508"
 metafile = true
@@ -393,6 +398,11 @@ metafile = true
 [[files]]
 file = "mods/entityculling.pw.toml"
 hash = "4fbe037c1ec3570be84f68e075c3e8293b15f64dda22bca4735924705fb38236"
+metafile = true
+
+[[files]]
+file = "mods/explosion-overhaul-a-new-level-of-destruction.pw.toml"
+hash = "9c0093c600ffa2e51804e15079de11e328e976a07048596e1f9d564898619fe2"
 metafile = true
 
 [[files]]

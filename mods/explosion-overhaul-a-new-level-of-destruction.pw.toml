@@ -1,0 +1,13 @@
+name = "Explosion Overhaul: A new level of destruction"
+filename = "explosionoverhaul-0.2.3.0-neoforge.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "26c0313b1cb937e6a730144f3d74df941c6cea0f"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8478789
+project-id = 1296203

@@ -1,0 +1,13 @@
+name = "Aeronautics Hot Air Fix"
+filename = "aeronauticshotairfix-1.1.0.jar"
+side = "both"
+
+[download]
+hash-format = "sha1"
+hash = "f4d8dab54b9b7b53aae1e6fed4675e17309bb0e2"
+mode = "metadata:curseforge"
+
+[update]
+[update.curseforge]
+file-id = 8654146
+project-id = 1633376
