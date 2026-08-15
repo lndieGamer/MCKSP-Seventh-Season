@@ -12,7 +12,7 @@ metafile = true
 
 [[files]]
 file = "mods/aeronautics-hot-air-fix.pw.toml"
-hash = "a5a6d4da3d6bd35708795ec761a4400f5792fea1e3b644035ebeb98926ef14b6"
+hash = "25560b252f40c0ca7bff93f9aa1be6ce511f0213074f169e9d7e4c7005d399b1"
 metafile = true
 
 [[files]]

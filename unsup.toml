@@ -462,3 +462,19 @@ name = "Отключить"
 
 [metafile."dynamiclights-reforged"]
 flavors = ["dynamiclights-reforged_on"]
+
+[flavor_groups."aeronautics-hot-air-fix"]
+name = "Aeronautics - Hot Air Fix (Фикс шейдеров с Aeronautics)"
+description = "Исправляет артефакты в углу экрана при использовании шейдеров с Create Aeronautics"
+side = "client"
+
+[[flavor_groups."aeronautics-hot-air-fix".choices]]
+id = "aeronautics-hot-air-fix_on"
+name = "Включить"
+
+[[flavor_groups."aeronautics-hot-air-fix".choices]]
+id = "aeronautics-hot-air-fix_off"
+name = "Отключить"
+
+[metafile."aeronautics-hot-air-fix"]
+flavors = ["aeronautics-hot-air-fix_on"]
