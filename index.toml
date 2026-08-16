@@ -231,6 +231,11 @@ hash = "a7250c8da96a2033b7e72213cbbcdad0601cb0750639e49d321f19776c8d0c87"
 metafile = true
 
 [[files]]
+file = "mods/create-better-frequency.pw.toml"
+hash = "1cf3e19307d2dc5dd7734f0b884642f379c23019a3ec532e1f77a8e94692ea45"
+metafile = true
+
+[[files]]
 file = "mods/create-big-cannons.pw.toml"
 hash = "b6ac94e91f766466186d350ed45a79fdcf7805f34d9170ccc8612ff47983a5f5"
 metafile = true
