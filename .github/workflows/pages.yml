@@ -45,8 +45,8 @@ jobs:
           else
             echo "index.toml уже актуален"
           fi
-          
-        - name: Assemble site
+
+      - name: Assemble site
         run: |
           mkdir -p _site
           cp pack.toml index.toml _site/
