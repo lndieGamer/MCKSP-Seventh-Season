@@ -51,6 +51,11 @@ jobs:
           mkdir -p _site
           cp pack.toml index.toml _site/
           cp -r mods _site/
+          if [ -f unsup.toml ]; then
+            cp unsup.toml _site/
+          else
+            echo "ВНИМАНИЕ: unsup.toml не найден — флейворы работать не будут"
+          fi
           for d in config resourcepacks shaderpacks kubejs; do
             if [ -d "$d" ]; then cp -r "$d" _site/; fi
           done
