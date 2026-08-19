@@ -74,7 +74,7 @@ hash = "eaabd5014c7335708949e6a9fc2ac4404c1ed0fc2e64e1c533de580caa568658"
 
 [[files]]
 file = "mods/3dskinlayers.pw.toml"
-hash = "c1f98a1e9d7201f0b6ddc3f705f43a53f7539978f48425de5c1177a310fe7b86"
+hash = "86c73031103be35b240e6b5dbfcd4c0bc24b1b208b46d44f11871adc115d6240"
 metafile = true
 
 [[files]]
@@ -84,7 +84,7 @@ metafile = true
 
 [[files]]
 file = "mods/aeronautics-hot-air-fix.pw.toml"
-hash = "25560b252f40c0ca7bff93f9aa1be6ce511f0213074f169e9d7e4c7005d399b1"
+hash = "a5a6d4da3d6bd35708795ec761a4400f5792fea1e3b644035ebeb98926ef14b6"
 metafile = true
 
 [[files]]
@@ -244,7 +244,7 @@ metafile = true
 
 [[files]]
 file = "mods/coastal-waves.pw.toml"
-hash = "c00b3260b13825a17143f09e90923a02e272415d6f1af33ee74a6d54bfc8506d"
+hash = "df16c56ed8fb6955096c1942b97e00cea234d0921c94ca2408da9ea743ef56ef"
 metafile = true
 
 [[files]]
@@ -454,7 +454,7 @@ metafile = true
 
 [[files]]
 file = "mods/dynamiclights-reforged.pw.toml"
-hash = "03c4f9a926fc9bd90fc98c6dac2a39e70b28303e4f3519756a7b246444548654"
+hash = "f619c1ed2e189f9d482d081411fccee4bd26c05cce52a5db914f1989303f080c"
 metafile = true
 
 [[files]]
@@ -769,7 +769,7 @@ metafile = true
 
 [[files]]
 file = "mods/reeses-sodium-options.pw.toml"
-hash = "9a8c2546447303b4dde1862ef1e358a1728f60845e029e9ca6ddaa622b618b53"
+hash = "8f47f534372061308021b082fe67802a0bb6cb323e1dbbeb911c461b4cfe0518"
 metafile = true
 
 [[files]]
@@ -939,7 +939,7 @@ metafile = true
 
 [[files]]
 file = "mods/voxy.pw.toml"
-hash = "0dba396bfe7a264278d3905f6d33755e18a9a038eb468ecb88407fbd32ac6474"
+hash = "491810a3691e8c07cc2c91c412280f8c48f684d3fa2a212d995b002eade0e9e8"
 metafile = true
 
 [[files]]
