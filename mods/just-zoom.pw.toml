@@ -1,6 +1,6 @@
 name = "Just Zoom"
 filename = "justzoom_neoforge_2.1.0_MC_1.21.1.jar"
-side = "both"
+side = "client"
 
 [download]
 hash-format = "sha1"
