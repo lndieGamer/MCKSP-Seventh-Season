@@ -1,0 +1,13 @@
+name = "Advanced Peripherals"
+filename = "AdvancedPeripherals-1.21.1-0.8.0a.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/SOw6jD6x/versions/Awt8eCuo/AdvancedPeripherals-1.21.1-0.8.0a.jar"
+hash-format = "sha512"
+hash = "d6c9ed9d041fa6228131889bd03523d524cc3411fef32363c8364c916c90c8be8a9d1fc72985a3766195a72a918813f87f32516155744cccb9745ca20cbe38a7"
+
+[update]
+[update.modrinth]
+mod-id = "SOw6jD6x"
+version = "Awt8eCuo"
