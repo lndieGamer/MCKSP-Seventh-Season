@@ -1,6 +1,78 @@
 hash-format = "sha256"
 
 [[files]]
+file = "config/create_enchantment_industry-server.toml"
+hash = "d6342da655e8afd4efbc59ed8745db21e2619bf9c1616f1643f257ed4eb1ade3"
+
+[[files]]
+file = "config/fancymenu/assets/book.png"
+hash = "e95358880b96f893d390918f5944986cc113aa4429e04ef90594caa21ea09a14"
+
+[[files]]
+file = "config/fancymenu/assets/cat.png"
+hash = "e8a0fcb1c44e041c35c4863f1cd7de5fbc423b85ece5bec8d3cef21062801835"
+
+[[files]]
+file = "config/fancymenu/assets/images.jpg"
+hash = "ac71c59c3f2add77c4678fe4438345d4a26117ec2bc747258651acea7fdf9df7"
+
+[[files]]
+file = "config/fancymenu/assets/jazz.ogg"
+hash = "7681ceb9517c3c559624698dc9426d50ccf0646ae32cba3c9141ecee932cc7b9"
+
+[[files]]
+file = "config/fancymenu/custom_gui_screens.txt"
+hash = "ff492043eaf454c46e949d5eef32ece90cc5a19feb50a161dd29a43b5732c880"
+
+[[files]]
+file = "config/fancymenu/customizablemenus.txt"
+hash = "9f0ada5a7f0193d2d717d1c1736f545f5235c2597213731493b97488617ebbf2"
+
+[[files]]
+file = "config/fancymenu/customization/title_screen_layout.txt"
+hash = "f0d1a7e54e888d504a8ec0ce4c6c39f725b1394383917e7d8af2650d4ae2acda"
+
+[[files]]
+file = "config/fancymenu/options.txt"
+hash = "c6acfc1f5358ab6d35f7e00bf920b6ca1001b0347b6d9a0c3ae3f826eb5f221a"
+
+[[files]]
+file = "config/iris.properties"
+hash = "3e4b4793f49403d3cd9a504448686aa0fe68cdbbb6191eabd4d0a91245799fbe"
+
+[[files]]
+file = "config/islandgen-common.toml"
+hash = "fb1f738e380ccdfd50721448d2798669e870247ce6aae3aa2cc4ab93af2a7b62"
+
+[[files]]
+file = "config/jade/hide-blocks.json"
+hash = "309df4ae96864c19eae41b646d58497c85a73b1fc3c584e772ef4d5822794baa"
+
+[[files]]
+file = "config/jade/hide-entities.json"
+hash = "3741bb54a4535fb5a00fb0ee1f4386f3dd17834aebdf9e89c21fcd3307109709"
+
+[[files]]
+file = "config/jade/plugins.json"
+hash = "3edf084601089d7c9ca0d6882a3c0e59c779190bf44a26c039a529b75f04022f"
+
+[[files]]
+file = "config/jade/sort-order.json"
+hash = "d344aab02fd0501774fb62fb0af18ecc9ee949f830f54bc5cbabaf8dfcadf95c"
+
+[[files]]
+file = "config/ntgl-server.toml"
+hash = "a8395a9471b6b4499929b2837cd089fe07245c6e1b9f1a0da4ca7a6f3a9d38ee"
+
+[[files]]
+file = "config/sodium-options.json"
+hash = "4056d1df6ceaf99ce534f5f61bf978bc2f6d62381deed617cf361e180e1f1ca4"
+
+[[files]]
+file = "config/ssrd-common.toml"
+hash = "eaabd5014c7335708949e6a9fc2ac4404c1ed0fc2e64e1c533de580caa568658"
+
+[[files]]
 file = "mods/3dskinlayers.pw.toml"
 hash = "c1f98a1e9d7201f0b6ddc3f705f43a53f7539978f48425de5c1177a310fe7b86"
 metafile = true
