@@ -1,0 +1,94 @@
+name: Deploy modpack to Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write   # нужно, чтобы закоммитить обновлённый index.toml
+  pages: write
+  id-token: write
+
+# Не даём двум деплоям идти одновременно
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v5
+        with:
+          go-version: stable
+
+      - name: Install packwiz
+        run: go install github.com/packwiz/packwiz@latest
+
+      - name: Refresh index
+        run: packwiz refresh
+
+      - name: Cache mod jars
+        uses: actions/cache@v4
+        with:
+          path: .jarcache
+          key: jars-${{ hashFiles('mods/*.pw.toml') }}
+          restore-keys: jars-
+
+      - name: Check dependencies
+        run: |
+          pip install tomli --quiet
+          python3 tools/check-deps.py --pack . --cache .jarcache --quiet-optional
+
+      - name: Commit refreshed index
+        run: |
+          if [ -n "$(git status --porcelain index.toml pack.toml)" ]; then
+            git config user.name  "github-actions[bot]"
+            git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+            git add index.toml pack.toml
+            git commit -m "chore: refresh index"
+            git push
+            echo "index.toml обновлён и закоммичен"
+          else
+            echo "index.toml уже актуален"
+          fi
+
+      - name: Assemble site
+        run: |
+          mkdir -p _site
+          cp pack.toml index.toml _site/
+          cp -r mods _site/
+          if [ -f unsup.toml ]; then
+            cp unsup.toml _site/
+          else
+            echo "ВНИМАНИЕ: unsup.toml не найден — флейворы работать не будут"
+          fi
+          for d in config resourcepacks shaderpacks kubejs; do
+            if [ -d "$d" ]; then cp -r "$d" _site/; fi
+          done
+          if [ -f options.txt ]; then cp options.txt _site/; fi
+          if [ -f servers.dat ]; then cp servers.dat _site/; fi
+          echo "--- что уедет на Pages:"
+          du -sh _site
+          find _site -maxdepth 1
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
