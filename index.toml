@@ -1021,7 +1021,3 @@ metafile = true
 file = "mods/zeta.pw.toml"
 hash = "d1baffd370868590fcb2785146c278df5781d20994022749c53c0f9b2bffc7fc"
 metafile = true
-
-[[files]]
-file = "pages.yml"
-hash = "2ff9b089219cee47902c8cd3ac089e158c6c49ead62fe255be8142fb71cb60f9"
