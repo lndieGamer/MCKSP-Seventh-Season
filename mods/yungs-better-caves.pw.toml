@@ -1,6 +1,6 @@
 name = "YUNG's Better Caves (Forge/NeoForge)"
 filename = "YungsBetterCaves-1.21.1-NeoForge-3.1.4.jar"
-side = "both"
+side = "server"
 
 [download]
 hash-format = "sha1"

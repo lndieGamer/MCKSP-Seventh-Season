@@ -1,6 +1,6 @@
 name = "NetherPortalFix"
 filename = "netherportalfix-neoforge-1.21.1-21.1.1.jar"
-side = "both"
+side = "server"
 
 [download]
 url = "https://cdn.modrinth.com/data/nPZr02ET/versions/O09BGtgh/netherportalfix-neoforge-1.21.1-21.1.1.jar"

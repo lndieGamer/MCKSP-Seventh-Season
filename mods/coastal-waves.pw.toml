@@ -1,6 +1,6 @@
 name = "Coastal Waves"
 filename = "Waves-1.21.x-1.6.jar"
-side = "client"
+side = "both"
 
 [download]
 hash-format = "sha1"

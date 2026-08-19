@@ -1,6 +1,6 @@
 name = "Better Safe Bed"
 filename = "bettersafebed-neoforge-1.21-16.jar"
-side = "both"
+side = "server"
 
 [download]
 hash-format = "sha1"

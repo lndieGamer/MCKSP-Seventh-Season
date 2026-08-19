@@ -1,6 +1,6 @@
 name = "voxy-0.2.15-NeoForge-1.21.1.jar"
 filename = "voxy-0.2.15-NeoForge-1.21.1.jar"
-side = "both"
+side = "client"
 
 [download]
 url = "https://github.com/lndieGamer/voxy/releases/download/v.1.0.0/voxy-0.2.15-NeoForge-1.21.1.jar"
