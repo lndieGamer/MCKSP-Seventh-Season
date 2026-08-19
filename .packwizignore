@@ -23,3 +23,4 @@ mods/*.jar
 packwiz-installer-bootstrap.jar
 installer/**
 build/**server-mods-expected.txt
+server-mods-expected.txt

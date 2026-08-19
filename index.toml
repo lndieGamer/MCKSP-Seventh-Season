@@ -667,7 +667,7 @@ metafile = true
 
 [[files]]
 file = "mods/power-grid.pw.toml"
-hash = "94f92fecc2a48a76f3fa40672343d676e4b2aac2a905949b4decb7f5aaa37aea"
+hash = "8eccacbcc9c2d57edaa7a72fde1dead4dc66b1dbcdeb43b9c1e223fd45e6e0e0"
 metafile = true
 
 [[files]]
