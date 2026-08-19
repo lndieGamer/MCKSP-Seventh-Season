@@ -57,7 +57,7 @@ metafile = true
 
 [[files]]
 file = "mods/azimuth-api.pw.toml"
-hash = "b5ed2db0df4f472014d4e3ce55e54e0439a4b8e0eb898c23be4ec93e4e5f123a"
+hash = "0a52f6f8c287ca852cce533742ae800dac58a816966e1a491eec68c9e1a63305"
 metafile = true
 
 [[files]]
@@ -238,6 +238,11 @@ metafile = true
 [[files]]
 file = "mods/create-big-cannons.pw.toml"
 hash = "b6ac94e91f766466186d350ed45a79fdcf7805f34d9170ccc8612ff47983a5f5"
+metafile = true
+
+[[files]]
+file = "mods/create-bits-n-bobs.pw.toml"
+hash = "c6b399ca61b14669696d7ceddaf4932f1971a587474116aa9af540705a1504cc"
 metafile = true
 
 [[files]]
