@@ -1,13 +1,13 @@
 name = "Locator Bar"
-filename = "LocatorBar-neoforge-1.2.1+1.21.1.jar"
+filename = "LocatorBar-neoforge-1.2.2+1.21.1.jar"
 side = "both"
 
 [download]
 hash-format = "sha1"
-hash = "cbc6594b61ca8940b3e1d299496d7cb9f6d2d268"
+hash = "9d8b9375b32ce84d81e110a1ca673d6284c04eff"
 mode = "metadata:curseforge"
 
 [update]
 [update.curseforge]
-file-id = 8405131
+file-id = 8602125
 project-id = 1523749

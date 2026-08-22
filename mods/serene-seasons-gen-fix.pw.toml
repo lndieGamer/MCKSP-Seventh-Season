@@ -1,13 +1,13 @@
 name = "Serene Seasons Gen Fix"
-filename = "sereneseasonsgenfix-1.2.4.jar"
+filename = "seasonsfix-neoforge-1.21.1-2.1.2.jar"
 side = "server"
 
 [download]
-url = "https://cdn.modrinth.com/data/26LRjUh8/versions/mglcoBeE/sereneseasonsgenfix-1.2.4.jar"
+url = "https://cdn.modrinth.com/data/26LRjUh8/versions/ODT30is0/seasonsfix-neoforge-1.21.1-2.1.2.jar"
 hash-format = "sha512"
-hash = "77c045b34a5780bd406c04cb190b3086910096f77297137ca57ef757851b4994da09deaddc8ae49c84e76e70faa517463b1f6e4fa7a67481397b76dbda1e3795"
+hash = "f3548dbef8995e11fae3b7d28902b475c8768f51747e9846aca0c686d02420bee7e5792419cbd1f0b835d914578489bfdda16ecc15edfb99a208286f61e62b35"
 
 [update]
 [update.modrinth]
 mod-id = "26LRjUh8"
-version = "mglcoBeE"
+version = "ODT30is0"
