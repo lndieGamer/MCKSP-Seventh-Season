@@ -288,6 +288,11 @@ hash = "889d2c573f46e94318761c1e26d84e3c0520425cf12187f4b97ad3d51fd26363"
 metafile = true
 
 [[files]]
+file = "mods/create-aeronautics-toolgun.pw.toml"
+hash = "783a2f396c1420da031f90b14a60b7020bd97d32c76a1bade1980046aa812aba"
+metafile = true
+
+[[files]]
 file = "mods/create-aeronautics-transmission-linkage.pw.toml"
 hash = "fec1a804af60a29865851eac6337d3f55ef663931e29db1d132d946a5b16bc04"
 metafile = true
