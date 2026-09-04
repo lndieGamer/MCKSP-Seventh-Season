@@ -73,14 +73,6 @@ file = "config/ssrd-common.toml"
 hash = "eaabd5014c7335708949e6a9fc2ac4404c1ed0fc2e64e1c533de580caa568658"
 
 [[files]]
-file = "ersnikitDevMCKSP-Seventh-Season git revert e32e90166b4e36a69c706b05f6a5104d0220dd5d"
-hash = "2975bc88a982bef5db4beed0ffc05c516fa856e2c11f005595ded1686108917e"
-
-[[files]]
-file = "git"
-hash = "ac7b3c62f1b587bb3d60f51af308e33eaa4d12812db4ad43d9382afb16149537"
-
-[[files]]
 file = "mods/3dskinlayers.pw.toml"
 hash = "c1f98a1e9d7201f0b6ddc3f705f43a53f7539978f48425de5c1177a310fe7b86"
 metafile = true
