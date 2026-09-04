@@ -1,0 +1,493 @@
+[33mcommit b1075a0ef73795bb88f2e3a876cdbe84bb59bb6f[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m, [m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Wed Aug 19 20:44:37 2026 +0200
+
+    sides fix
+
+[33mcommit ad4372804c6511509fc9c135d3e3f4d01d087a8b[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Wed Aug 19 20:25:53 2026 +0200
+
+    add: advancedperipherals
+
+[33mcommit eaed5c179d738d4f7e9fe3a844878492d136e08f[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Wed Aug 19 11:41:30 2026 +0000
+
+    chore: refresh index
+
+[33mcommit 3391fbbcec95b471b4105628e845d6a8f045ef84[m
+Author: lndieGamer <145165798+lndieGamer@users.noreply.github.com>
+Date:   Wed Aug 19 13:40:57 2026 +0200
+
+    packwizignore fix
+
+[33mcommit 90b4334106d4e2d336a2beb65a5e95e50d687dcc[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Wed Aug 19 11:39:59 2026 +0000
+
+    chore: refresh index
+
+[33mcommit 4fe887c70a8432a36ce7e4bec4a92aeb4419a6b2[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 19 13:39:24 2026 +0200
+
+    fix: убрать .jarcache и pages.yml из индекса пака
+
+[33mcommit c7c9ec6add166b79c6f29c6b9b4c74330d243a4c[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 19 13:24:08 2026 +0200
+
+    fix add mods, added sides selection
+
+[33mcommit ca3aff1b9602313f36dd5cd93908a4d943825309[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 19 12:29:33 2026 +0200
+
+    sides fix
+
+[33mcommit c41e8d08d392869e0621cb2a5788b684f16aa46a[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 19 10:43:12 2026 +0200
+
+    sides fix
+
+[33mcommit 175febadd1cab02962a80d9b1f8ff6373e1c6ea7[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 19 10:41:51 2026 +0200
+
+    config return
+
+[33mcommit d279d261bada98a2cd8d7c33c3b98d658787a4b5[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 19 09:30:41 2026 +0200
+
+    pages fix x2
+
+[33mcommit 5928e406e8d0264cd4f5ec88a6323fea796febe1[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 19 09:18:52 2026 +0200
+
+    update: Create: Power Grid
+
+[33mcommit 7a9ac98a1dbe037b2f6b16c42e675625b4d4642f[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 19 09:15:56 2026 +0200
+
+    add: create-bits-n-bobs
+
+[33mcommit 7c869beee75abe2d100932d9ca6cd2e0c126b70a[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 19 09:11:32 2026 +0200
+
+    pages fix
+
+[33mcommit e6d1391535306426b40fe65f92a5264115907adb[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sun Aug 16 23:53:05 2026 +0200
+
+    add: create-better-frequency
+
+[33mcommit fffea25ccaa81cd9f08836711c0c7b2583c2db70[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 15 22:47:46 2026 +0200
+
+    Set sides
+
+[33mcommit 4e650bc773da20bd57a559f5835d8225d5bfe649[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 15 22:43:15 2026 +0200
+
+    add: aeronautics-hot-air-fix, explosion-overhaul-a-new-level-of-destruction
+
+[33mcommit 789182cdda3e59de57a29e43dba3fe345f8dbee1[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Tue Aug 11 18:40:11 2026 +0200
+
+    Pages fix
+
+[33mcommit 55ddfa2eeea3d2462d905d0ef163f70dbc148edc[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Tue Aug 11 18:32:31 2026 +0200
+
+    add: create-aeronautics-compatability
+
+[33mcommit cafe8c3b3ea7e2c6a3baa6937bc4f0505644e1fe[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Aug 8 16:53:29 2026 +0000
+
+    chore: refresh index
+
+[33mcommit aeebe922d9f29f3797cc2dca97170227959a8384[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 18:52:50 2026 +0200
+
+    config removed
+
+[33mcommit e91a7c37c2f1cb0037a987f46f627845e13b1fbb[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 18:06:15 2026 +0200
+
+    axiom
+
+[33mcommit afab98678b3b5cf71027c79fb9ff6b5da4a332e8[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 18:02:54 2026 +0200
+
+    chore: обновление пака
+
+[33mcommit 5c4b7fa98eec7f4d4e1c42f30ddecb7196d42c1a[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 17:59:00 2026 +0200
+
+    chore: обновление пака
+
+[33mcommit a003c93f566d6e299dbe5b971c8d2fc44250752a[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Aug 8 15:27:12 2026 +0000
+
+    chore: refresh index
+
+[33mcommit 7d130743ea0f9dba2616f6d085177df262295ada[m
+Merge: f8d0ae8 d6df78e
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 17:26:25 2026 +0200
+
+    Merge branch 'main' of https://github.com/lndieGamer/MCKSP-Seventh-Season
+
+[33mcommit f8d0ae820d1721cf60f79fe6aa5c187454fd0fa3[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 17:26:18 2026 +0200
+
+    deleted sodium api
+
+[33mcommit d6df78ee5e6e438ee3f480605c4d7392e3b288e7[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Aug 8 15:19:41 2026 +0000
+
+    chore: refresh index
+
+[33mcommit 7818a7f672327034320f4927cbe628f105cd6a12[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 17:19:02 2026 +0200
+
+    Reese added
+
+[33mcommit 5712b76441f4b9d447ae91e4bfc33d75069d791f[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 17:16:30 2026 +0200
+
+    add: reeses-sodium-options
+
+[33mcommit fef70997d6d3fc694eab0955fb71dfbade62cdf2[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 17:10:32 2026 +0200
+
+    Sodium side fix
+
+[33mcommit bd6e76b3b44af01ffc87b247ff0a9e20f21f6d60[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 17:00:06 2026 +0200
+
+    Scripts fix
+
+[33mcommit eefa16b8191f7abae9eab75a4895a6177f02f628[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 16:50:12 2026 +0200
+
+    deleted DH unsup
+
+[33mcommit f41d603b91bbbbf1c5b75ff1a55524bf55561510[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 16:48:52 2026 +0200
+
+    new scripts+mods
+
+[33mcommit 17067fb4a37ba429c50f63fcda2c67c54c39151b[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 16:34:48 2026 +0200
+
+    add: dynamiclights-reforged, sodium-options-api
+
+[33mcommit 67424517ccd3e30bb01853944b21a21bec9a4f6b[m
+Merge: 993dfa5 559c4e4
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 16:19:06 2026 +0200
+
+    Merge branch 'main' of https://github.com/lndieGamer/MCKSP-Seventh-Season
+
+[33mcommit 993dfa5ceb838dfca5195d53b8e9eac56b2873d1[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 16:18:59 2026 +0200
+
+    another unsup fix
+
+[33mcommit 559c4e4564c1c6938a35bab623f53c3db5cb1556[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Aug 8 14:15:53 2026 +0000
+
+    chore: refresh index
+
+[33mcommit 79d6433526dc3504cb539321e4212f7612480aba[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 16:15:19 2026 +0200
+
+    voxy set to client
+
+[33mcommit 8c74dad2a41a8dcfb14ef9e9092aa64a7f85e8d4[m
+Merge: 30fd8e2 9e2915d
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 16:02:14 2026 +0200
+
+    Merge branch 'main' of https://github.com/lndieGamer/MCKSP-Seventh-Season
+
+[33mcommit 30fd8e23f681f44c224099ba30beb2c41c57c1b0[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 16:02:04 2026 +0200
+
+    unsup fix
+
+[33mcommit 9e2915d741b64ff0759b38e8579ffd70bea7d57e[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Aug 8 13:56:20 2026 +0000
+
+    chore: refresh index
+
+[33mcommit 024500c72942b195c39577aa55a365e66b252952[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 15:55:47 2026 +0200
+
+    voxy rename
+
+[33mcommit 7d4c4288f8ef451bf6a88bb30f24225ddb33fce5[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 15:55:01 2026 +0200
+
+    chore: обновление пака
+
+[33mcommit d3605a0e410a7258130218407b9e08262bb44d2d[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 15:49:27 2026 +0200
+
+    add: forgified-fabric-api, sinytra-connector
+
+[33mcommit 1c4e44d3558d7e5417ef1ba284ce13f0f2297db6[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 15:47:48 2026 +0200
+
+    version type fix
+
+[33mcommit 13d9901a299c45c8a36acca2471b15c5423d106e[m
+Merge: ebce7ce dcbeefc
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 15:13:20 2026 +0200
+
+    Merge branch 'main' of https://github.com/lndieGamer/MCKSP-Seventh-Season
+
+[33mcommit ebce7ce11a653cefd2936928b3c161489367c744[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 15:13:13 2026 +0200
+
+    git pull fix
+
+[33mcommit dcbeefc56c0a406c3fd0e235801682ec9a3fab42[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Aug 8 13:00:51 2026 +0000
+
+    chore: refresh index
+
+[33mcommit fad44b0f30dc992a647149829af759db55fb718b[m
+Author: PorcoRosso <116020199+NotTheTea@users.noreply.github.com>
+Date:   Sat Aug 8 16:00:19 2026 +0300
+
+    Delete mods/carryon-aeronautics-compat.pw.toml
+
+[33mcommit 917b629b966daef8387e3a5f4d4fdb81c30d690a[m
+Merge: 6b7f68e 5f13402
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 14:52:58 2026 +0200
+
+    Merge branch 'main' of https://github.com/lndieGamer/MCKSP-Seventh-Season
+
+[33mcommit 6b7f68ecccca2459bc46d4c943cc6ae194ef0713[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 14:52:48 2026 +0200
+
+    waves fix
+
+[33mcommit 5f13402abce9dbaf9b20463d4793cd7fa98d812d[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Aug 8 12:50:01 2026 +0000
+
+    chore: refresh index
+
+[33mcommit 0e094940d7c65838c6c6a13be66b5227574486ab[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 14:49:26 2026 +0200
+
+    waves
+
+[33mcommit d2e1c2e12bd7922d0855ea77410712bae822efdf[m
+Merge: a6a70f6 db9ea91
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 14:48:41 2026 +0200
+
+    conflict fix
+
+[33mcommit a6a70f68ca7f212148588288bf767f77b60a911b[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 14:46:42 2026 +0200
+
+    chore: обновление пака
+
+[33mcommit db9ea91e5aa655cb1758e4cf96c5c1d5ed79c75f[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Aug 8 12:40:04 2026 +0000
+
+    chore: refresh index
+
+[33mcommit 171b70563a293a9143b5845e7554a17f1b4518a8[m
+Author: PorcoRosso <116020199+NotTheTea@users.noreply.github.com>
+Date:   Sat Aug 8 15:39:19 2026 +0300
+
+    Delete mods/sit.pw.toml
+
+[33mcommit ae24be1cc2380f7fa0ab839f84225961072fcb4d[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Sat Aug 8 12:39:04 2026 +0000
+
+    chore: refresh index
+
+[33mcommit 7700e392bfafc4bcef825e98b54455f32c11c0ed[m
+Author: PorcoRosso <116020199+NotTheTea@users.noreply.github.com>
+Date:   Sat Aug 8 15:38:35 2026 +0300
+
+    Add files via upload
+
+[33mcommit 4e77dd440b3b234f17b75b8d4ba7b290ce0cc546[m
+Author: PorcoRosso <116020199+NotTheTea@users.noreply.github.com>
+Date:   Sat Aug 8 15:27:56 2026 +0300
+
+    Add files via upload
+
+[33mcommit 4b1c1ed5a17acb42dccf59a9d6b386ce3ebc2d49[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 14:19:59 2026 +0200
+
+    update: обновлено модов — 25
+
+[33mcommit 5dffc4d59467eba5c3b2819535df20aeb71cfd13[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 13:37:19 2026 +0200
+
+    fix toml
+
+[33mcommit ee8ece7cc853659ca26d9ce84a953d9e018e6770[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 13:33:23 2026 +0200
+
+    fix: xaero map and minimap choice:
+
+[33mcommit ee7d794d94fb492fafd29c2df491ca6dac6838a8[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 12:17:11 2026 +0200
+
+    add: скрипт обновления модов
+
+[33mcommit 7756ad017de8985a063192f248390b6e4e6b0b97[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 08:30:42 2026 +0200
+
+    chore: обновление пака
+
+[33mcommit 1f3c4faa2f305749227c7c3ce88b33fb480b381c[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Sat Aug 8 08:24:34 2026 +0200
+
+    fix: remove options.txt
+
+[33mcommit 4ecfadc55f1ad310dcfdd7b41f14a22d06c95dcb[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Thu Aug 6 02:39:42 2026 +0200
+
+    chore: обновление пака
+
+[33mcommit 2789ed23f3aff4ffbcca2d30296eb39baa75c6d2[m
+Author: lndieGamer <nikitaakusin222@gmail.com>
+Date:   Thu Aug 6 00:07:21 2026 +0200
+
+    fix: new unsup
+
+[33mcommit 99f529da636d06ed0a39d4dede43e10bfa0d41ca[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 5 15:37:50 2026 +0200
+
+    feat: unsup light fix2
+
+[33mcommit 04cb38f8e6b04b1bf4b6363534709de08626f2a1[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 5 14:48:58 2026 +0200
+
+    feat: unsup light fix
+
+[33mcommit 800839a83ab83c95c49f9c9bc526f5e9472af03c[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 5 13:11:22 2026 +0200
+
+    feat: enable unsup flavors
+
+[33mcommit 094c78ffe003af730faff752679da89793e0603b[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 5 12:24:57 2026 +0200
+
+    feat: unsup flavors
+
+[33mcommit a64fd00fceecd48dd0f25348171375cc99007df0[m
+Merge: e28a898 f29b565
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 5 12:22:03 2026 +0200
+
+    Merge branch 'main' of https://github.com/lndieGamer/MCKSP-Seventh-Season
+
+[33mcommit e28a898cf41983d3568dfdc8fa85ee3c21544721[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 5 12:21:49 2026 +0200
+
+    unsup
+
+[33mcommit f29b5650e37045d21bdecf64dba50c67ca5fcb81[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Wed Aug 5 08:07:21 2026 +0000
+
+    chore: refresh index
+
+[33mcommit 3f2f5018cc6a34645ff31d4b4a70eedf12c59e3c[m[33m ([m[1;33mtag: [m[1;33mv1.0.0[m[33m)[m
+Merge: f8ba623 3a38ad1
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 5 10:06:39 2026 +0200
+
+    Merge branch 'main' of https://github.com/lndieGamer/MCKSP-Seventh-Season
+
+[33mcommit f8ba623348a0161520e1f33f55f7a20ea0c51239[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 5 10:06:24 2026 +0200
+
+    fix: exclude .github from pack index
+
+[33mcommit 3a38ad188c95a02704645c12873aa9f4bc8a987c[m
+Author: github-actions[bot] <41898282+github-actions[bot]@users.noreply.github.com>
+Date:   Wed Aug 5 07:57:51 2026 +0000
+
+    chore: refresh index
+
+[33mcommit 837add5e9f55e55eadd29e457b0576b07cbe4bf9[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 5 09:57:11 2026 +0200
+
+    ci: deploy pack to Pages
+
+[33mcommit 0ff464434eac9f4b2132d872a334f199d2efdddd[m
+Author: Никита <nikitaakusin222@gmail.com>
+Date:   Wed Aug 5 09:52:14 2026 +0200
+
+    MCKSP Seventh Season 1.0.0

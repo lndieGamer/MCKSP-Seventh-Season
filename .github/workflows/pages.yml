@@ -27,8 +27,16 @@ jobs:
         with:
           go-version: stable
 
+      # `go install ...@latest` больше не работает: с коммита 9066bf8 (2026-09-02,
+      # "Use new modrinth environment data") в go.mod packwiz есть директива replace,
+      # а go install такие модули собирать отказывается. Поэтому клонируем и собираем сами.
       - name: Install packwiz
-        run: go install github.com/packwiz/packwiz@latest
+        run: |
+          git clone --depth 1 https://github.com/packwiz/packwiz.git /tmp/packwiz-src
+          cd /tmp/packwiz-src
+          go build -o "$(go env GOPATH)/bin/packwiz" .
+          echo "$(go env GOPATH)/bin" >> "$GITHUB_PATH"
+          "$(go env GOPATH)/bin/packwiz" --help | head -1
 
       - name: Refresh index
         run: packwiz refresh
@@ -50,17 +58,9 @@ jobs:
         run: |
           mkdir -p _site
           cp pack.toml index.toml _site/
-          cp -r mods _site/
-          if [ -f unsup.toml ]; then
-            cp unsup.toml _site/
-          else
-            echo "ВНИМАНИЕ: unsup.toml не найден — флейворы работать не будут"
-          fi
-          for d in config resourcepacks shaderpacks kubejs; do
-            if [ -d "$d" ]; then cp -r "$d" _site/; fi
-          done
-          if [ -f options.txt ]; then cp options.txt _site/; fi
-          if [ -f servers.dat ]; then cp servers.dat _site/; fi
+          cp -r mods config _site/
+          if [ -f options.txt ];  then cp options.txt  _site/; fi
+          if [ -f servers.dat ];  then cp servers.dat  _site/; fi
           echo "--- что уедет на Pages:"
           du -sh _site
           find _site -maxdepth 1
